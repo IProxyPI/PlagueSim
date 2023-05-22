@@ -1,5 +1,5 @@
-from Parameters import *
-from Resources import *
+import Parameters
+import Resources
 
 # Basic person
 class agent():
@@ -27,7 +27,11 @@ class agent():
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
         
-        self.immune_compromised = false # If disease = death
+        self.immune_compromised = False # If disease = death
         
     def attempt_infect_others(self, _agent_list):
-        pass
+        
+        if (self.is_sick):
+            
+            outgoing_airborne_infection_chance = infection_chance
+            outgoing_contact_infection_chance = infection_chance

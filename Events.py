@@ -1,5 +1,6 @@
-from Locations import *
-from Agent import *
+import Locations
+import Agent
+
 from Parameters import *
 
 class event_parent():

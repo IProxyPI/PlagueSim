@@ -1,8 +1,9 @@
-from Locations import *
-from Agent import *
-from Events import *
+import Locations
+import Agent
+import Events
+import Resources
+
 from Parameters import *
-from Resources import *
 
 # Runs all tests
 def run_all_tests():
@@ -21,10 +22,10 @@ def run_minor_tests():
 def test_location_infection():
     print("Testing location infection functionality.")
     
-    loc = location_parent()
+    loc = Locations.location_parent()
     
     for i in range(20):
-        loc.add_agent_to_location(agent())
+        loc.add_agent_to_location(Agent.agent())
     
     print(loc.get_agents())
     loc.attempt_internal_infections()

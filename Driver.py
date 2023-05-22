@@ -1,8 +1,10 @@
-from Locations import *
-from Agent import *
-from Events import *
-from Testing_Module import *
-from Parameters import *
-from Resources import *
+import Locations
+import Agent
+import Events
+import Testing_Module
+import Resources
 
-run_all_tests()
+from Parameters import *
+
+
+Testing_Module.run_all_tests()
