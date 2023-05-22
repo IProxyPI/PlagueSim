@@ -16,6 +16,8 @@ class infection_event(event_parent):
         
         self.infector = None
     
+# Records whether starvation or infection killed the subject, 
+# holds infection event if infection
 class death_event(event_parent):
     
     def __init__(self):

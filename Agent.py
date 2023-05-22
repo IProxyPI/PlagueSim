@@ -11,10 +11,10 @@ class Agent():
         # or if sickness is detected and announced by another agent in the same location
         self.will_stay_home_if_sick = False
         self.will_stay_home_if_exposed = False
-        self.will_stay_mask_if_sick = False
-        self.will_stay_mask_if_exposed = False
-        self.will_stay_announce_if_sick = False
-        self.will_stay_announce_if_exposed = False
+        self.will_mask_if_sick = False
+        self.will_mask_if_exposed = False
+        self.will_announce_if_sick = False
+        self.will_announce_if_exposed = False
         
         self.exposure_timer = 0 # If exposed, # of hours before exposure/staying home status ends
         
