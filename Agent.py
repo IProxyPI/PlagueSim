@@ -1,6 +1,6 @@
 
 # Basic person
-class Agent():
+class agent():
     
     def __init__(self):
         
