@@ -1,3 +1,4 @@
+from Parameters import *
 
 # Basic person
 class agent():
@@ -15,6 +16,8 @@ class agent():
         self.will_mask_if_exposed = False
         self.will_announce_if_sick = False
         self.will_announce_if_exposed = False
+        self.washes_hands = False
+        self.washes_hands_when_sick_or_exposed = False
         
         self.exposure_timer = 0 # If exposed, # of hours before exposure/staying home status ends
         

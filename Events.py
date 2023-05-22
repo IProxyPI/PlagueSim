@@ -1,5 +1,6 @@
-
-
+from Locations import *
+from Agent import *
+from Parameters import *
 
 class event_parent():
     
@@ -9,7 +10,7 @@ class event_parent():
         self.day = 0
         self.subject = None # Agent the event has occured to
     
-
+# Records the moment in which an infection occurs
 class infection_event(event_parent):
     
     def __init__(self):
