@@ -68,6 +68,8 @@ perc_mask_if_sick = 20 # %
 perc_will_announce_if_sick = 20 # %
 perc_washes_hands_if_sick = 20 # %
 
+perc_immune_compromised = 2 # %
+
 chance_of_announcing_if_sick = 20 # %
 chance_of_going_to_doctor_if_sick = 2 # %
 

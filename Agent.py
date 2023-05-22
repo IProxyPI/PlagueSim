@@ -27,5 +27,7 @@ class agent():
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
         
+        self.immune_compromised = false # If disease = death
+        
     def attempt_infect_others(self, _agent_list):
         pass
