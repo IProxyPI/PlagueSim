@@ -4,7 +4,6 @@ import Events
 import Testing_Module
 import Resources
 
-from Parameters import *
-
+import Paramters as params
 
 Testing_Module.run_all_tests()

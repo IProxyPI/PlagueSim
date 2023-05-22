@@ -33,5 +33,5 @@ class agent():
         
         if (self.is_sick):
             
-            outgoing_airborne_infection_chance = infection_chance
-            outgoing_contact_infection_chance = infection_chance
+            outgoing_airborne_infection_chance = Parameters.infection_chance
+            outgoing_contact_infection_chance = Parameters.infection_chance

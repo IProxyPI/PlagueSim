@@ -1,7 +1,7 @@
 import Locations
 import Agent
 
-from Parameters import *
+import Parameters
 
 class event_parent():
     

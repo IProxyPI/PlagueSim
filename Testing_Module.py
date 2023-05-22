@@ -3,7 +3,7 @@ import Agent
 import Events
 import Resources
 
-from Parameters import *
+import Parameters
 
 # Runs all tests
 def run_all_tests():
