@@ -1,5 +1,4 @@
 
-
 class location_parent():
     
     def __init__(self):
@@ -9,6 +8,5 @@ class location_parent():
     def attempt_internal_infections(self):
         
         for Agent in self.contents:
-            pass
-            # This is where each infected agent tries to infect a non-infected agent within the location
+            Agent.attempt_infect_others(self.contents)
         
