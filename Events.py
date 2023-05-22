@@ -4,11 +4,22 @@
 class event_parent():
     
     def __init__(self):
-        pass
+        
+        self.time = 0
+        self.day = 0
+        self.subject = None # Agent the event has occured to
     
 
 class infection_event(event_parent):
-    pass
-    # Fill this with relevant data later, mainly with:
-    # time of infection, infector data, infected data, location, etc.
-    # Will start filling this out once we have structure to suggest what to track
+    
+    def __init__(self):
+        
+        self.infector = None
+    
+class death_event(event_parent):
+    
+    def __init__(self):
+        
+        self.starvation = False
+        self.infection = False
+        self.relevant_infection_event = None
