@@ -14,7 +14,7 @@ class event_parent():
 class infection_event(event_parent):
     
     def __init__(self):
-        
+        self.infection_type = "" # CONTACT, AIRBORN, FOOD
         self.infector = None
     
 # Records whether starvation or infection killed the subject, 

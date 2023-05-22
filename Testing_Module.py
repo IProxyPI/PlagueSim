@@ -2,6 +2,7 @@ from Locations import *
 from Agent import *
 from Events import *
 from Parameters import *
+from Resources import *
 
 # Runs all tests
 def run_all_tests():

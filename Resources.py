@@ -6,3 +6,4 @@ class resource_parent():
     
     def __init__(self):
         contaminated = False
+        contaminator = None # The person that contaminated this food - For events and tracking

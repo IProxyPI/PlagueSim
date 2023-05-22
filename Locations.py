@@ -1,5 +1,6 @@
 from Parameters import *
 from Agent import *
+from Resources import *
 
 class location_parent():
     

@@ -1,4 +1,5 @@
 from Parameters import *
+from Resources import *
 
 # Basic person
 class agent():
