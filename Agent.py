@@ -34,19 +34,21 @@ class agent():
         
         if (self.is_sick):
             
+            # Gets basic outgoing chances from this agents parameters
             outgoing_airborne_infection_chance = Parameters.infection_chance
             outgoing_contact_infection_chance = Parameters.infection_chance
-            
             if (self.is_masked()):
                 outgoing_airborne_infection_chance *= Parameters.mask_infection_reduction
             if (self.will_wash_hands()):
                 outgoing_contact_infection_chance *= Parameters.hand_washing_infection_reduction
             
+            # For each agent in the location, get their infection odds, compare them, and roll to see
+            # if the agent becomes infected.
             for cur_agent in _agent_list:
                 if (not cur_agent.is_sick):
+                    
                     final_airborne = outgoing_airborne_infection_chance
                     final_contact = outgoing_contact_infection_chance
-                    
                     if (cur_agent.is_masked()):
                         final_airborne *= Parameters.mask_infection_reduction
                     if (cur_agent.will_wash_hands()):

@@ -90,8 +90,15 @@ def test_disease_spread():
     a1.infect() # make one agent sick
     Parameters.infection_chance = 100 # ensure disease is confirmed to spread
     loc.attempt_internal_infections() # run a spread roll
-    
-    if (a2.sick()):
+ 
+    # create a third agent, make sure disease wont spread with no infection chance
+    Parameters.infection_chance = 0 # ensure disease is confirmed to not spread
+    a3 = Agent.agent()     
+    loc.add_agent_to_location(a3)
+    loc.attempt_internal_infections() # run a spread roll
+   
+ 
+    if (a2.sick() and not a3.sick()):
         print("Disease spreading between agents passed.")
         test_passed()
     else:
