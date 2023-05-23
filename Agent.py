@@ -35,3 +35,10 @@ class agent():
             
             outgoing_airborne_infection_chance = Parameters.infection_chance
             outgoing_contact_infection_chance = Parameters.infection_chance
+            
+    def infect(self):
+        self.is_sick = True
+        self.time_sick = 0
+        
+    def sick(self):
+        return self.is_sick
