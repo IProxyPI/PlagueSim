@@ -11,8 +11,8 @@ class location_parent():
     
     def attempt_internal_infections(self):
         
-        for Agent in self.contents:
-            Agent.attempt_infect_others(self.contents)
+        for cur_agent in self.contents:
+            cur_agent.attempt_infect_others(self.contents)
     
     # For resetting the location of agents
     def clear_contents(self):
