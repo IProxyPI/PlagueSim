@@ -43,19 +43,20 @@ class agent():
                 outgoing_contact_infection_chance *= Parameters.hand_washing_infection_reduction
             
             for cur_agent in _agent_list:
-                final_airborne = outgoing_airborne_infection_chance
-                final_contact = outgoing_contact_infection_chance
+                if (not cur_agent.is_sick):
+                    final_airborne = outgoing_airborne_infection_chance
+                    final_contact = outgoing_contact_infection_chance
+                    
+                    if (cur_agent.is_masked()):
+                        final_airborne *= Parameters.mask_infection_reduction
+                    if (cur_agent.will_wash_hands()):
+                        final_contact *= Parameters.hand_washing_infection_reduction
+                    
+                    if (rand.random() * 100) < (final_airborne * final_contact):
+                        cur_agent.infect( self )
                 
-                if (cur_agent.is_masked()):
-                    final_airborne *= Parameters.mask_infection_reduction
-                if (cur_agent.will_wash_hands()):
-                    final_contact *= Parameters.hand_washing_infection_reduction
-                
-                if (rand.random() * 100) < (final_airborne * final_contact):
-                    cur_agent.infect() # NOTE || Add infection event here
-                
-            
-    def infect(self):
+    # Add infection event here
+    def infect(self, infector = None):
         self.is_sick = True
         self.time_sick = 0
         
