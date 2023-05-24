@@ -39,3 +39,4 @@ def create_agent( _dm ):
 
 def roll_percentage( _perc ):
     return (rand.random() * 100) < _perc
+

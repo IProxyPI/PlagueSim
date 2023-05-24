@@ -63,4 +63,27 @@ class neighborhood():
 #
 
 def generate_neighborhood_set(_type):
+    
+    if (_type == "city"): # Complete miniature city, with all buildings
+        return generate_city()
+    if (_type == "residental"): # Many houses and recreation
+        return generate_residental()
+    if (_type == "business"): # Many offices and grocery
+        return generate_business()
+    if (_type == "hospital"): # Some houses, offices, grocery and hospital
+        return generate_hospital()
+
+def populate_neighborhood(_neighborhood):
+    pass
+
+def generate_city():
+    output_data = []
+
+def generate_residental():
+    pass
+
+def generate_business():
+    pass
+
+def generate_hospital():
     pass
