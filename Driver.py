@@ -23,38 +23,40 @@ class simulation():
 # // Simulation execution functions
 
 def run_quick_sim( _print_interval = 4 ):
+    dm = Sim_Tools.sim_data_manager()
     l = Locations.location_parent()
     
     for i in range(1000):
-        l.add_agent_to_location(Sim_Tools.create_agent())
+        l.add_agent_to_location(Sim_Tools.create_agent(dm))
     
-    a = Sim_Tools.create_agent()
+    a = Sim_Tools.create_agent(dm)
     a.infect()
     
     l.add_agent_to_location(a)
-    event_list = []
-    time = 0
+    time = 1
     
     print_interval = _print_interval
     time_until_next_print = print_interval
     
-    for i in range(200):
+    for i in range(1000):
         
-        l.update(time)
+        l.update()
         time+=1
         output_events = l.attempt_internal_infections()
-        for infection in output_events:
-            event_list.append(infection)
-            
+           
         time_until_next_print -= 1
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
-            Visuals.print_data_graphs(event_list, time)
+            Visuals.print_data_graphs(dm.event_list, time)
     
     # Final Print
-    Visuals.print_data_graphs(event_list, time)
-    
-run_quick_sim(1000)
+    Visuals.print_data_graphs(dm.event_list, time)
+    a = 0
+    for i in l.get_agents():
+        if (i.sick()):
+            a += 1
+    print(a)
+run_quick_sim(10)
 
 # // Runs all tests
 

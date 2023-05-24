@@ -2,6 +2,7 @@ import Parameters
 import Resources
 import Events
 import random as rand
+import Sim_Tools
 
 # Basic person
 class agent():
@@ -33,13 +34,14 @@ class agent():
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
         
+        self.alive = True
+        
         self.cur_time = 0
        
     def attempt_infect_others(self, _agent_list):
         
-        infection_events = []
         
-        if (self.is_sick):
+        if (self.is_sick and self.is_contagious()):
             
             # Gets basic outgoing chances from this agents parameters
             outgoing_airborne_infection_chance = Parameters.infection_chance * Parameters.airborne_infection_percentage * 0.0001
@@ -61,25 +63,37 @@ class agent():
                     if (cur_agent.will_wash_hands()):
                         final_contact *= Parameters.hand_washing_infection_reduction*0.01
                     if (rand.random()) < (final_airborne + final_contact):
-                        infection_events.append(cur_agent.infect( self ))
-        
-        
-        return infection_events
+                        cur_agent.infect( self )
                 
     # Add infection event here
     def infect(self, infector = None):
         self.is_sick = True
         self.time_sick = 0
         
-        return Events.infection_event(self.cur_time)
+        self.dm.event_list.append(Events.infection_event(self.cur_time))
     
-    def update(self, _cur_time):
+    def update(self):
         
-        self.cur_time = _cur_time
+        self.cur_time+=1
         self.food -= 1 # Consume one food ## NOT CURRENTLY IMPLEMENTED
+        
+        if (self.is_sick and self.alive):
+            self.time_sick += 1
+            
+            if (self.time_sick >= Parameters.infection_period * 24):
+                if (rand.random() * 100 <= Parameters.lethality_rate):
+                    
+                    self.dm.event_list.append(Events.infection_death_event(self.cur_time))
+                    self.is_alive = False
+                else:
+                    self.dm.event_list.append(Events.recovered_event(self.cur_time))
+                    self.is_sick = False
     
     def sick(self):
         return self.is_sick
+    
+    def is_contagious(self):
+        return self.is_sick and self.time_sick <= Parameters.contagion_period * 24
     
     def number_of_hours_sick_for(self):
         return self.time_sick

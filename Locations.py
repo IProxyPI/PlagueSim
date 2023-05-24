@@ -13,23 +13,17 @@ class location_parent():
     
     def attempt_internal_infections(self):
         
-        infection_events = []
-        
-        for cur_agent in self.contents:
-            cur_agent.update(self.cur_time)
-            output_events = cur_agent.attempt_infect_others(self.contents)
-            for infection in output_events:
-                infection_events.append(infection)
-                
-                
-        return infection_events
+       for cur_agent in self.contents:
+            cur_agent.update()
+            cur_agent.attempt_infect_others(self.contents)
+
 
     # For resetting the location of agents
     def clear_contents(self):
         self.contents = []
         
-    def update(self, _cur_time):
-        self.cur_time = _cur_time
+    def update(self):
+        self.cur_time += 1
         
     def can_add_agent_to_location(self):
         return (len(self.contents) < self.max_capacity)
