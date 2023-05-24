@@ -74,7 +74,9 @@ class agent():
         return Events.infection_event(self.cur_time)
     
     def update(self, _cur_time):
+        
         self.cur_time = _cur_time
+        self.food -= 1 # Consume one food ## NOT CURRENTLY IMPLEMENTED
     
     def sick(self):
         return self.is_sick
@@ -91,7 +93,3 @@ class agent():
     
     def consume_food(self, _food):
         self.food += _food.consume()
-    
-    # This is the main call, manages all stats and whatnot
-    def iterate_one_hour(self):
-        self.food -= 1 # Consume one food

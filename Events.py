@@ -28,7 +28,7 @@ class infection_death_event():
         self.time = 0
         self.subject = None # Agent the event has occured to
         self.infection_event = None
-        self.type = "Infection"
+        self.type = "Infection Death"
         
     def get_time(self):
         return self.time
@@ -44,7 +44,7 @@ class starvation_death_event():
     def __init__(self):
         self.time = 0
         self.subject = None # Agent the event has occured to
-        self.type = "Infection"
+        self.type = "Infection Death"
         
     def get_time(self):
         return self.time
