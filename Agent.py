@@ -1,5 +1,6 @@
 import Parameters
 import Resources
+import Events
 import random as rand
 
 # Basic person
@@ -31,18 +32,22 @@ class agent():
         self.is_sick = False
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
+        
+        self.cur_time = 0
        
     def attempt_infect_others(self, _agent_list):
+        
+        infection_events = []
         
         if (self.is_sick):
             
             # Gets basic outgoing chances from this agents parameters
-            outgoing_airborne_infection_chance = Parameters.infection_chance
-            outgoing_contact_infection_chance = Parameters.infection_chance
+            outgoing_airborne_infection_chance = Parameters.infection_chance * Parameters.airborne_infection_percentage * 0.0001
+            outgoing_contact_infection_chance = Parameters.infection_chance * Parameters.contact_infection_percentage * 0.0001
             if (self.is_masked()):
-                outgoing_airborne_infection_chance *= Parameters.mask_infection_reduction
+                outgoing_airborne_infection_chance *= Parameters.mask_infection_reduction*0.01
             if (self.will_wash_hands()):
-                outgoing_contact_infection_chance *= Parameters.hand_washing_infection_reduction
+                outgoing_contact_infection_chance *= Parameters.hand_washing_infection_reduction*0.01
             
             # For each agent in the location, get their infection odds, compare them, and roll to see
             # if the agent becomes infected.
@@ -52,18 +57,25 @@ class agent():
                     final_airborne = outgoing_airborne_infection_chance
                     final_contact = outgoing_contact_infection_chance
                     if (cur_agent.is_masked()):
-                        final_airborne *= Parameters.mask_infection_reduction
+                        final_airborne *= Parameters.mask_infection_reduction*0.01
                     if (cur_agent.will_wash_hands()):
-                        final_contact *= Parameters.hand_washing_infection_reduction
-                    
-                    if (rand.random() * 100) < (final_airborne * final_contact):
-                        cur_agent.infect( self )
+                        final_contact *= Parameters.hand_washing_infection_reduction*0.01
+                    if (rand.random()) < (final_airborne + final_contact):
+                        infection_events.append(cur_agent.infect( self ))
+        
+        
+        return infection_events
                 
     # Add infection event here
     def infect(self, infector = None):
         self.is_sick = True
         self.time_sick = 0
         
+        return Events.infection_event(self.cur_time)
+    
+    def update(self, _cur_time):
+        self.cur_time = _cur_time
+    
     def sick(self):
         return self.is_sick
     
