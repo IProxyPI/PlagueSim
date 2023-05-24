@@ -67,6 +67,9 @@ class agent():
     def sick(self):
         return self.is_sick
     
+    def number_of_hours_sick_for(self):
+        return self.time_sick
+    
     # STUBS HERE
     def is_masked(self):
         return False
