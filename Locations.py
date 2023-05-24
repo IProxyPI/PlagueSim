@@ -41,6 +41,40 @@ class location_parent():
     def get_capacity(self):
         return self.capacity
 
+
+class hospital(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.workers_per_hospital
+        
+
+class house(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.people_per_household
+
+class office(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.workers_per_office
+
+class grocery(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.workers_per_retail
+
+class farm(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.workers_per_farm
+
+class recreation(location_parent):
+    
+    def __init__(self):
+        self.max_capacity = Parameters.workers_per_recreation
+
+
+
 class neighborhood():
     
     def __init__(self):
