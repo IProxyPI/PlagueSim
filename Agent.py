@@ -20,16 +20,18 @@ class agent():
         self.will_announce_if_exposed = False
         self.washes_hands = False
         self.washes_hands_when_sick_or_exposed = False
-        
+        self.goes_to_doctor_if_exposed = False
+        self.goes_to_doctor_if_sick = False
+         
+        self.immune_compromised = False # If disease = death
+         
         self.exposure_timer = 0 # If exposed, # of hours before exposure/staying home status ends
         
         
         self.is_sick = False
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
-        
-        self.immune_compromised = False # If disease = death
-        
+       
     def attempt_infect_others(self, _agent_list):
         
         if (self.is_sick):
@@ -71,3 +73,10 @@ class agent():
     
     def will_wash_hands(self):
         return False
+    
+    def consume_food(self, _food):
+        self.food += _food.consume()
+    
+    # This is the main call, manages all stats and whatnot
+    def iterate_one_hour(self):
+        self.food -= 1 # Consume one food
