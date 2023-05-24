@@ -59,7 +59,7 @@ def run_quick_sim( _print_interval = 4 ):
         if (i.sick()):
             a += 1
     print(a)
-#run_quick_sim(20)
+run_quick_sim(20)
 
 def run_quick_sim_v2():
     
@@ -67,7 +67,7 @@ def run_quick_sim_v2():
     Locations.populate_neighborhood(city)
     print(city)
 
-run_quick_sim_v2()
+#run_quick_sim_v2()
 
 # // Runs all tests
 
