@@ -36,28 +36,41 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = 
         time = event.get_time()
 
         if (event.get_type() == "Infection"):
-            infected_people[time] += 1
+            if (accumlative):
+                infected_people[time:_cur_time] += 1
+            else:
+                infected_people[time] += 1
         elif (event.get_type() == "Infection Death"):
-            dead_people[time] += 1
+            if (accumlative):
+                dead_people[time:_cur_time] += 1
+            else:
+                dead_people[time] += 1
         elif (event.get_type() == "Starvation Death"):
-            starved_people[time] += 1
+            if (accumlative):
+                starved_people[time:_cur_time] += 1
+            else:
+                starved_people[time] += 1
         elif (event.get_type() == "Recovered"):
-            recovered_people[time] += 1
+            if (accumlative):
+                recovered_people[time:_cur_time] += 1
+            else:
+                recovered_people[time] += 1
 
-        if (_cur_time != 0): 
-            susceptable_people[time] = susceptable_people[time - 1] - infected_people[time] - dead_people[time]
-            - starved_people[time] - recovered_people[time]
-        else:
-            susceptable_people[time] = _total_agents - infected_people[time] - dead_people[time]
-            - starved_people[time] - recovered_people[time]
+    for i in range(_cur_time):
+        susceptable_people[i] = _total_agents - infected_people[i] - dead_people[i]
+        - starved_people[i] - recovered_people[i]
+        if (susceptable_people[i] < 0):
+            susceptable_people = 0
+
+    plt.ion()
 
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
-    #plt.plot(dead_people, 'k-', label = "Dead")
-    #plt.plot(starved_people, 'y-', label = "Dead")
-    #plt.plot(recovered_people, 'g-', label = "Recovered")
-    #plt.legend(loc = "upper left")
-    #plt.show()
+    plt.plot(dead_people, 'k-', label = "Dead")
+    plt.plot(starved_people, 'y-', label = "Starved")
+    plt.plot(recovered_people, 'g-', label = "Recovered")
+    plt.legend(loc = "upper left")
+    plt.show()
 
 def print_map_data( _list_of_all_locations ):
     pass
