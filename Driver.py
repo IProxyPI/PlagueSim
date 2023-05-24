@@ -26,7 +26,9 @@ def run_quick_sim( _print_interval = 4 ):
     dm = Sim_Tools.sim_data_manager()
     l = Locations.location_parent()
     
-    for i in range(1000):
+    total_agents = 1000
+    
+    for i in range(total_agents-1):
         l.add_agent_to_location(Sim_Tools.create_agent(dm))
     
     a = Sim_Tools.create_agent(dm)
@@ -47,10 +49,11 @@ def run_quick_sim( _print_interval = 4 ):
         time_until_next_print -= 1
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
-            Visuals.print_data_graphs(dm.event_list, time)
+            Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
     
     # Final Print
-    Visuals.print_data_graphs(dm.event_list, time)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
     a = 0
     for i in l.get_agents():
         if (i.sick()):
