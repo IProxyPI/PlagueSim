@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 #   agent.sick(self): Returns if this agent is currently sick
 
 
-def print_data_graphs( _list_of_events, _cur_time, _total_people, accumlative = False ):
+def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = False ):
 
     susceptable_people = np.full(_cur_time, 0)
     infected_people = np.full(_cur_time, 0)
@@ -44,7 +44,7 @@ def print_data_graphs( _list_of_events, _cur_time, _total_people, accumlative = 
         else:
             recovered_people[time] += 1
 
-        susceptable_people[time] = _total_people - len(_list_of_events)
+        susceptable_people[time] = _total_agents - len(_list_of_events)
 
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
