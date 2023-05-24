@@ -40,3 +40,27 @@ class location_parent():
     # Gets the capacity of the location
     def get_capacity(self):
         return self.capacity
+
+class neighborhood():
+    
+    def __init__(self):
+        
+        self.locations = []
+    
+    def add_location(self, _loc):
+        self.locations.append(_loc)
+    
+# Current concept: a neighborhood set generates a randomized number of 
+# offices, houses, groceries, hospitals and recreation. Order is as follows:
+# Houses, hospitals to cover house population, groceries to cover house population,
+# recreation to cover house population, offices to cover population - workforce
+# required for other services
+#
+# Agents are not bound to their neighborhood, but may freely roam within a city.
+# Just ensures there will be enough locations and facilities per civilian set
+#
+# Which type of buildings are present is dependant on the neighborhood type
+#
+
+def generate_neighborhood_set(_type):
+    pass
