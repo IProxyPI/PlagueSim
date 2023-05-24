@@ -2,7 +2,9 @@ import Agent
 import Locations
 import Parameters
 import Events
+
 import numpy as np
+import matplotlib.pyplot as plt
 
 #   NOTES:
 #   Locations have a capacity, and list of agents within the location.
@@ -25,11 +27,13 @@ import numpy as np
 
 def print_data_graphs( _list_of_events, _cur_time ):
     
-    
     infected_people = np.full(_cur_time, 0)
     for event in _list_of_events:
         if (event.get_type() == "Infection"):
             infected_people[event.get_time()] += 1
+            
+    plt.plot(infected_people)
+    plt.show()
 
 def print_map_data( _list_of_all_locations ):
     pass

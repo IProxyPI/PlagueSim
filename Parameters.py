@@ -18,7 +18,7 @@
 #
 # // ------------------------------------------------------
 
-infection_chance = 0 # % per hour
+infection_chance = 0.01 # % per hour
 
 contagion_period = 7 # Days
 infection_period = 14 # Days
