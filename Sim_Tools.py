@@ -5,9 +5,13 @@ import Parameters
 import random as rand
 
 
+class sim_data_manager():
+    
+    def __init__(self):
+    
+        self.event_list = []
 
-
-def create_agent():
+def create_agent( _dm ):
     
     output_agent = Agent.agent()
     
@@ -25,6 +29,9 @@ def create_agent():
     output_agent.goes_to_doctor_if_sick = roll_percentage( Parameters.chance_of_going_to_doctor_if_sick ) or output_agent.goes_to_doctor_if_exposed
     
     output_agent.immune_compromised = roll_percentage( Parameters.perc_immune_compromised )
+    
+    
+    output_agent.dm = _dm;
     
     return output_agent
 
