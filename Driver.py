@@ -65,7 +65,7 @@ def run_quick_sim_v2():
     
     city = Locations.generate_neighborhood_set("city")
     Locations.populate_neighborhood(city)
-    print(city)
+    print(city.get_locations())
 
 #run_quick_sim_v2()
 

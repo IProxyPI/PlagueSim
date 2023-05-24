@@ -10,7 +10,8 @@ class location_parent():
         
         self.contents = [] # List of all people current within this location
         self.max_capacity = 100000
-        self.cur_time = 0;
+        self.cur_time = 0
+        self.type = "parent"
     
     def attempt_internal_infections(self):
         
@@ -47,32 +48,38 @@ class hospital(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.workers_per_hospital
+        self.type = "hospital"
         
 
 class house(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.people_per_household
+        self.type = "house"
 
 class office(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.workers_per_office
+        self.type = "office"
 
 class grocery(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.workers_per_retail
+        self.type = "grocery"
 
 class farm(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.workers_per_farm
+        self.type = "farm"
 
 class recreation(location_parent):
     
     def __init__(self):
         self.max_capacity = Parameters.workers_per_recreation
+        self.type = "reacreation"
 
 
 
@@ -98,6 +105,9 @@ class neighborhood():
             agent_list += locs.get_agents()
             
         return agent_list
+    
+    def get_locations(self):
+        return self.locations
     
 # Current concept: a neighborhood set generates a randomized number of 
 # offices, houses, groceries, hospitals and recreation. Order is as follows:
@@ -129,6 +139,13 @@ def populate_neighborhood(_neighborhood):
     workers_left = 0
     residents_left = 0
     
+    loc = _neighborhood.get_locations()
+    
+    for i in range(len(loc)):
+        if (loc[i].type == "house"):
+            house_list.append(loc[i])
+        else:
+            workhouse_list.append(loc[i])
     
 def generate_city():
     output_data = neighborhood()
