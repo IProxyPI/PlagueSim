@@ -59,7 +59,7 @@ def run_quick_sim( _print_interval = 4 ):
         if (i.sick()):
             a += 1
     print(a)
-run_quick_sim(10)
+run_quick_sim(20)
 
 # // Runs all tests
 

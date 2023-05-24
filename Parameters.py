@@ -94,3 +94,11 @@ vaccine_development_time = 20 # in days
 # // ------------------------------------------------------
 
 random_checkup_chance = 1 # %. Chance a person dedicates a day to go to a hospital for some reason
+
+people_per_household = 3 # Actual US average is 2.5, but unfortuanatly we do not cover half-people in this simulation
+workers_per_retail = 9 # Rough data from online
+workers_per_recreation = 9 # Assumed same as retail, bad assumption but hey, will fix later
+workers_per_hospital = 20 # Unfortuanatly the average of roughly 1000 employees per hospital is too large for this sim
+workers_per_office = 40 # same issue as the hospital
+workers_per_farm = 20 # same issue as the hospital
+hospital_capacity = workers_per_hospital/4 # To compensate we will consider the average of 4 employees per patient. Over this will overwork a hospital

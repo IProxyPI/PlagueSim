@@ -12,6 +12,8 @@ class agent():
         self.home_location = None
         self.work_location = None
         
+        self.schedule = []
+        
         # These parameters determine behavior for when detecting sickness within self,
         # or if sickness is detected and announced by another agent in the same location
         self.will_stay_home_if_sick = False
@@ -108,5 +110,31 @@ class agent():
     def consume_food(self, _food):
         self.food += _food.consume()
         
-    #def run_scheduler(self):
-        
+    def get_schedule(self):
+        return self.schedule
+    
+    def gen_temp_schedule(self):
+        self.schedule = [   "sleep",        #0
+                            "sleep",        #1
+                            "sleep",        #2
+                            "sleep",        #3
+                            "sleep",        #4
+                            "sleep",        #5
+                            "free",        #6
+                            "free",        #7
+                            "free",        #8
+                            "free",        #9
+                            "work",        #10
+                            "work",        #11
+                            "work",        #12
+                            "work",        #13
+                            "work",        #14
+                            "work",        #15
+                            "work",        #16
+                            "work",        #17
+                            "free",        #18
+                            "free",        #19
+                            "free",        #20
+                            "free",        #21
+                            "sleep",        #22
+                            "sleep"]        #23

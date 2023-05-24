@@ -32,9 +32,11 @@ def create_agent( _dm ):
     
     
     output_agent.dm = _dm
+    output_agent.gen_temp_schedule()
     
     return output_agent
 
 
 def roll_percentage( _perc ):
     return (rand.random() * 100) < _perc
+
