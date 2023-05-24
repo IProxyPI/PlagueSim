@@ -108,5 +108,5 @@ class agent():
     def consume_food(self, _food):
         self.food += _food.consume()
         
-    def run_scheduler(self):
+    #def run_scheduler(self):
         

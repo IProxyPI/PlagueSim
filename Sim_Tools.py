@@ -31,7 +31,7 @@ def create_agent( _dm ):
     output_agent.immune_compromised = roll_percentage( Parameters.perc_immune_compromised )
     
     
-    output_agent.dm = _dm;
+    output_agent.dm = _dm
     
     return output_agent
 

@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 
 def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = False ):
 
-    susceptable_people = np.full(_cur_time, 0)
+    susceptable_people = np.full(_cur_time, _total_agents)
     infected_people = np.full(_cur_time, 0)
     dead_people = np.full(_cur_time, 0)
     starved_people = np.full(_cur_time, 0)
@@ -41,18 +41,23 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = 
             dead_people[time] += 1
         elif (event.get_type() == "Starvation Death"):
             starved_people[time] += 1
-        else:
+        elif (event.get_type() == "Recovered"):
             recovered_people[time] += 1
 
-        susceptable_people[time] = _total_agents - len(_list_of_events)
+        if (_cur_time != 0): 
+            susceptable_people[time] = susceptable_people[time - 1] - infected_people[time] - dead_people[time]
+            - starved_people[time] - recovered_people[time]
+        else:
+            susceptable_people[time] = _total_agents - infected_people[time] - dead_people[time]
+            - starved_people[time] - recovered_people[time]
 
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
-    plt.plot(dead_people, 'k-', label = "Dead")
-    plt.plot(starved_people, 'y-', label = "Dead")
-    plt.plot(recovered_people, 'g-', label = "Recovered")
-    plt.legend(loc = "upper left")
-    plt.show()
+    #plt.plot(dead_people, 'k-', label = "Dead")
+    #plt.plot(starved_people, 'y-', label = "Dead")
+    #plt.plot(recovered_people, 'g-', label = "Recovered")
+    #plt.legend(loc = "upper left")
+    #plt.show()
 
 def print_map_data( _list_of_all_locations ):
     pass
