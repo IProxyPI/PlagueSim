@@ -114,9 +114,11 @@ def run_quick_sim_v2( _print_interval = 4 ):
     print_interval = _print_interval
     time_until_next_print = print_interval
     
-    for i in range(1000):
+    month_range = 2
+    
+    for i in range(month_range * 30 * 24):
         
-        place_agents_in_world(time, dm, city.get_locations(), 1)
+        place_agents_in_world(time, dm, city.get_locations())
         city.update()
         time+=1
         
@@ -125,12 +127,12 @@ def run_quick_sim_v2( _print_interval = 4 ):
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
             Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+        print(str(i) + " of " + str(month_range * 30 * 24))
     
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
-
-run_quick_sim_v2(200)
+run_quick_sim_v2(20000000)
 
 # // Runs all tests
 

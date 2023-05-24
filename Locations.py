@@ -177,20 +177,21 @@ def populate_neighborhood(_neighborhood, _dm):
 def generate_city():
     output_data = neighborhood()
     required_civilians = 0
+    factor = 100
     
-    for i in range(random.randint(2,7)):
+    for i in range(random.randint(2,7)*factor):
         output_data.add_location(grocery())
         required_civilians += Parameters.workers_per_retail
         
-    for i in range(random.randint(1,1)):
+    for i in range(random.randint(1,1)*factor):
         output_data.add_location(hospital())
         required_civilians += Parameters.workers_per_hospital
         
-    for i in range(random.randint(1,3)):
+    for i in range(random.randint(1,3)*factor):
         output_data.add_location(office())
         required_civilians += Parameters.workers_per_office
         
-    for i in range(random.randint(1,6)):
+    for i in range(random.randint(1,6)*factor):
         output_data.add_location(recreation())
         required_civilians += Parameters.workers_per_recreation
     

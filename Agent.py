@@ -40,7 +40,7 @@ class agent():
         self.alive = True
         
         self.cur_time = 0
-       
+    
     def attempt_infect_others(self, _agent_list):
         
         
