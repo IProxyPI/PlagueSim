@@ -15,6 +15,7 @@ class simulation():
     def __init__(self):
         
         self.agent_list = [] # Holds all active agents in this simulation
+        self.events_list = [] # Holds all events that occurred over the simulation
     
 
 
