@@ -35,6 +35,7 @@ class agent():
         self.is_sick = False
         self.time_sick = 0
         self.food = 24 # if reaches 0, starvation occurs
+        self.recovered = False
         
         self.alive = True
         
@@ -56,7 +57,7 @@ class agent():
             # For each agent in the location, get their infection odds, compare them, and roll to see
             # if the agent becomes infected.
             for cur_agent in _agent_list:
-                if (not cur_agent.is_sick):
+                if (not cur_agent.is_sick and not cur_agent.recovered):
                     
                     final_airborne = outgoing_airborne_infection_chance
                     final_contact = outgoing_contact_infection_chance
@@ -90,6 +91,7 @@ class agent():
                 else:
                     self.dm.event_list.append(Events.recovered_event(self.cur_time))
                     self.is_sick = False
+                    self.recovered = True
     
     def sick(self):
         return self.is_sick

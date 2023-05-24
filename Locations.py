@@ -1,7 +1,8 @@
 import Agent
 import Resources
-
 import Parameters
+
+import random
 
 class location_parent():
     
@@ -83,6 +84,20 @@ class neighborhood():
     
     def add_location(self, _loc):
         self.locations.append(_loc)
+        
+    def execute_locations(self):
+        
+        for locs in self.locations:
+            locs.update()
+            locs.attempt_internal_infections()
+    
+    def get_all_agents(self):
+        
+        agent_list = []
+        for locs in self.locations:
+            agent_list += locs.get_agents()
+            
+        return agent_list
     
 # Current concept: a neighborhood set generates a randomized number of 
 # offices, houses, groceries, hospitals and recreation. Order is as follows:
@@ -108,11 +123,38 @@ def generate_neighborhood_set(_type):
         return generate_hospital()
 
 def populate_neighborhood(_neighborhood):
-    pass
-
+    
+    workhouse_list = []
+    house_list = []
+    workers_left = 0
+    residents_left = 0
+    
+    
 def generate_city():
-    output_data = []
-
+    output_data = neighborhood()
+    required_civilians = 0
+    
+    for i in range(random.randint(2,7)):
+        output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_retail
+        
+    for i in range(random.randint(1,1)):
+        output_data.add_location(hospital())
+        required_civilians += Parameters.workers_per_hospital
+        
+    for i in range(random.randint(1,3)):
+        output_data.add_location(office())
+        required_civilians += Parameters.workers_per_office
+        
+    for i in range(random.randint(1,6)):
+        output_data.add_location(recreation())
+        required_civilians += Parameters.workers_per_recreation
+    
+    for i in range(round(required_civilians/3)+1):
+        output_data.add_location(house())
+    
+    return output_data
+        
 def generate_residental():
     pass
 

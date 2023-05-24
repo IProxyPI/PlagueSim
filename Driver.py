@@ -44,7 +44,7 @@ def run_quick_sim( _print_interval = 4 ):
         
         l.update()
         time+=1
-        output_events = l.attempt_internal_infections()
+        l.attempt_internal_infections()
            
         time_until_next_print -= 1
         if (time_until_next_print <= 0):
@@ -59,7 +59,15 @@ def run_quick_sim( _print_interval = 4 ):
         if (i.sick()):
             a += 1
     print(a)
-run_quick_sim(20)
+#run_quick_sim(20)
+
+def run_quick_sim_v2():
+    
+    city = Locations.generate_neighborhood_set("city")
+    Locations.populate_neighborhood(city)
+    print(city)
+
+run_quick_sim_v2()
 
 # // Runs all tests
 
