@@ -132,7 +132,7 @@ def test_agent_personality_distribution():
     print("Testing agent personality distribution.")
     start_test()
 
-    total = 100000  
+    total = 500000 
 
     im_comp = 0
     masker = 0
@@ -141,7 +141,7 @@ def test_agent_personality_distribution():
     for i in range(total):
         a = Sim_Tools.create_agent()
         
-        if (a.will_mask_if_sick):
+        if (a.will_mask_if_exposed):
             masker+=1
         if (a.immune_compromised):
             im_comp+=1
