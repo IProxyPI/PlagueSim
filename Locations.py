@@ -31,10 +31,6 @@ class location_parent():
     def get_agents(self):
         return self.contents
     
-    # Gets the agents currently at this location
-    def get_contents(self):
-        return self.contents
-    
     # Gets the capacity of the location
     def get_capacity(self):
         return self.capacity

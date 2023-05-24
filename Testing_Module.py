@@ -4,6 +4,7 @@ import Events
 import Resources
 import Parameters
 import Sim_Tools
+import Visuals
 
 total_tests = 0
 passed_tests = 0
@@ -36,6 +37,7 @@ def run_all_tests():
 def run_minor_tests():
     print("Running all minor tests.")
     test_location_infection()
+    test_visualization()
     print("Minor tests complete.")
 
 
@@ -164,7 +166,7 @@ def test_agent_personality_distribution():
     
     print()
  
-
+def test_visualization():
 
 # // Helper methods
 

@@ -5,6 +5,7 @@ import Testing_Module
 import Resources
 import Parameters
 import Sim_Tools
+import Visuals
 
 
 # Each run of the simulation will be held as a single object- that way, many sims 
