@@ -10,6 +10,7 @@ class sim_data_manager():
     def __init__(self):
     
         self.event_list = []
+        self.agent_list = []
 
 def create_agent( _dm ):
     
@@ -33,6 +34,8 @@ def create_agent( _dm ):
     
     output_agent.dm = _dm
     output_agent.gen_temp_schedule()
+    
+    _dm.agent_list.append(output_agent)
     
     return output_agent
 

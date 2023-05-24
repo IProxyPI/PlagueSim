@@ -19,6 +19,8 @@ class simulation():
         self.events_list = [] # Holds all events that occurred over the simulation
         self.location_list = [] # Holds all of the locations
 
+def place_agents_in_world(_dm, _locations:
+    
 
 # // Simulation execution functions
 
@@ -54,20 +56,36 @@ def run_quick_sim( _print_interval = 4 ):
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
-    a = 0
-    for i in l.get_agents():
-        if (i.sick()):
-            a += 1
-    print(a)
-run_quick_sim(20)
+#run_quick_sim(20)
 
-def run_quick_sim_v2():
+def run_quick_sim_v2( _print_interval = 4 ):
+    
+    dm = Sim_Tools.sim_data_manager()
     
     city = Locations.generate_neighborhood_set("city")
-    Locations.populate_neighborhood(city)
-    print(city.get_locations())
+    Locations.populate_neighborhood(city, dm)
+    
+    total_agents = len(dm.agent_list)
+    print(len(dm.agent_list))
+    time = 0
+    print_interval = _print_interval
+    time_until_next_print = print_interval
+   
+    for i in range(1000):
+        
+        city.update()
+        time+=1
+           
+        time_until_next_print -= 1
+        if (time_until_next_print <= 0):
+            time_until_next_print = print_interval
+            Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+    
+    # Final Print
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
 
-#run_quick_sim_v2()
+run_quick_sim_v2(200)
 
 # // Runs all tests
 

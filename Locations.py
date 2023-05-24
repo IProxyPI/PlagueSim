@@ -1,6 +1,7 @@
 import Agent
 import Resources
 import Parameters
+import Sim_Tools
 
 import random
 
@@ -47,6 +48,7 @@ class location_parent():
 class hospital(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_hospital
         self.type = "hospital"
         
@@ -54,30 +56,35 @@ class hospital(location_parent):
 class house(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.people_per_household
         self.type = "house"
 
 class office(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_office
         self.type = "office"
 
 class grocery(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_retail
         self.type = "grocery"
 
 class farm(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_farm
         self.type = "farm"
 
 class recreation(location_parent):
     
     def __init__(self):
+        location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_recreation
         self.type = "reacreation"
 
@@ -92,7 +99,7 @@ class neighborhood():
     def add_location(self, _loc):
         self.locations.append(_loc)
         
-    def execute_locations(self):
+    def update(self):
         
         for locs in self.locations:
             locs.update()
@@ -132,11 +139,10 @@ def generate_neighborhood_set(_type):
     if (_type == "hospital"): # Some houses, offices, grocery and hospital
         return generate_hospital()
 
-def populate_neighborhood(_neighborhood):
+def populate_neighborhood(_neighborhood, _dm):
     
     workhouse_list = []
     house_list = []
-    workers_left = 0
     residents_left = 0
     
     loc = _neighborhood.get_locations()
@@ -146,6 +152,23 @@ def populate_neighborhood(_neighborhood):
             house_list.append(loc[i])
         else:
             workhouse_list.append(loc[i])
+    
+    cur_house = 0
+    residents_left = house_list[cur_house].max_capacity
+    for i in range(len(workhouse_list)):
+        
+        cur = workhouse_list[i]
+        for j in range(cur.max_capacity):
+            
+            if (residents_left <= 0):
+                cur_house+=1
+                residents_left = house_list[cur_house].max_capacity
+            
+            cur_agent = Sim_Tools.create_agent(_dm)
+            cur_agent.work_location = cur
+            cur_agent.home_location = house_list[cur_house]
+            residents_left -= 1
+            
     
 def generate_city():
     output_data = neighborhood()

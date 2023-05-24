@@ -111,7 +111,7 @@ class agent():
     
     def consume_food(self, _food):
         self.food += _food.consume()
-        
+    
     def get_schedule(self):
         return self.schedule
     
