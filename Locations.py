@@ -115,6 +115,10 @@ class neighborhood():
     
     def get_locations(self):
         return self.locations
+
+    def clear_all_location_agents(self):
+        for locs in self.locations:
+            locs.clear_contents()
     
 # Current concept: a neighborhood set generates a randomized number of 
 # offices, houses, groceries, hospitals and recreation. Order is as follows:
