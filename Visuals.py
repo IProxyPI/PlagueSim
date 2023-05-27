@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 
 def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = False ):
 
-    susceptable_people = np.full(_cur_time, _total_agents)
+    susceptable_people = np.full(_cur_time, 0)
     infected_people = np.full(_cur_time, 0)
     dead_people = np.full(_cur_time, 0)
     starved_people = np.full(_cur_time, 0)
@@ -57,8 +57,7 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, accumlative = 
                 recovered_people[time] += 1
 
     for i in range(_cur_time):
-        susceptable_people[i] = _total_agents - infected_people[i] - dead_people[i]
-        - starved_people[i] - recovered_people[i]
+        susceptable_people[i] = _total_agents - infected_people[i] - dead_people[i] - starved_people[i] - recovered_people[i]
         if (susceptable_people[i] < 0):
             susceptable_people = 0
 
