@@ -11,6 +11,15 @@ class sim_data_manager():
     
         self.event_list = []
         self.agent_list = []
+        self.location_list = [] # Current unused
+        self.state_events = []
+        self.sird = [0, 0, 0, 0]
+        
+    def reset_sird(self):
+        self.sird = [0, 0, 0, 0]
+        
+    def get_sird(self):
+        return self.sird
 
 def create_agent( _dm ):
     

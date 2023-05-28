@@ -118,6 +118,8 @@ def run_quick_sim_v2( _print_interval = 4 ):
     
     for i in range(int(month_range * 30 * 24)):
         
+        dm.reset_sird()
+        
         place_agents_in_world(time, dm, city.get_locations())
         city.update()
         time+=1
@@ -128,6 +130,12 @@ def run_quick_sim_v2( _print_interval = 4 ):
             time_until_next_print = print_interval
             Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
         print(str(i) + " of " + str(month_range * 30 * 24))
+    
+    
+        cur_state = Events.state_event(time)
+        dm.event_list.append(cur_state)
+        dm.state_events.append(cur_state)
+         
     
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
