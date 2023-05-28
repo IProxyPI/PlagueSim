@@ -5,7 +5,6 @@ import Resources
 import Parameters
 import Sim_Tools
 import Visuals
-import math
 
 total_tests = 0
 passed_tests = 0
@@ -152,13 +151,13 @@ def test_agent_personality_distribution():
             hand_washer+=1
 
     print("Results:")
-    print("Hand washers: {} against goal of {}".format(hand_washer/total, Parameters.perc_washes_hands_if_sick))
-    print("Masker: {} against goal of {}".format(masker/total, Parameters.perc_mask_if_sick))
-    print("Immune compromized: {} against goal of {}".format(im_comp/total, Parameters.perc_immune_compromised))
+    print("Hand washers: ", str(hand_washer/total), " against goal of ", str(Parameters.perc_washes_hands_if_sick))
+    print("Masker: ", str(masker/total), " against goal of ", str(Parameters.perc_mask_if_sick))
+    print("Immune compromized: ", str(im_comp/total), " against goal of ", str(Parameters.perc_immune_compromised))
     
-    if      math.isclose(hand_washer / total, Parameters.perc_washes_hands_if_sick * 0.01, abs_tol = 0.005) \
-        and math.isclose(masker      / total, Parameters.perc_mask_if_sick         * 0.01, abs_tol = 0.005) \
-        and math.isclose(im_comp     / total, Parameters.perc_immune_compromised   * 0.01, abs_tol = 0.005):
+    if ( within_tol(hand_washer/total,Parameters.perc_washes_hands_if_sick*0.01,0.005) \
+        and within_tol(masker/total,Parameters.perc_mask_if_sick*0.01,0.005) \
+        and within_tol(im_comp/total,Parameters.perc_immune_compromised*0.01,0.005) ):
         print("Testing agent personality distribution passed.")
         test_passed()
     else:
@@ -168,7 +167,7 @@ def test_agent_personality_distribution():
     print()
  
 def test_visualization():
-    pass
+
 # // Helper methods
 
 def within_tol( _a, _b, _tol = 0.001 ):
