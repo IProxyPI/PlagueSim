@@ -89,15 +89,15 @@ def run_quick_sim( _print_interval = 4 ):
         l.update()
         time+=1
         l.attempt_internal_infections()
-           
         time_until_next_print -= 1
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
-            Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+            
+            Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), True)
     
     # Final Print
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), False)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), True)
 #run_quick_sim(20)
 
 def run_quick_sim_v2( _print_interval = 4 ):
@@ -125,21 +125,24 @@ def run_quick_sim_v2( _print_interval = 4 ):
         time+=1
         
         
+        cur_state = Events.state_event(time)
+        cur_state.set_vals(dm.get_sird())
+        dm.event_list.append(cur_state)
+        dm.state_events.append(cur_state)
+
+
         time_until_next_print -= 1
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
-            Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+            Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
         print(str(i) + " of " + str(month_range * 30 * 24))
     
     
-        cur_state = Events.state_event(time)
-        dm.event_list.append(cur_state)
-        dm.state_events.append(cur_state)
-         
+        
     
     # Final Print
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, False)
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, True)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), False)
+    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), True)
 run_quick_sim_v2(50)
 
 # // Runs all tests
