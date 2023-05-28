@@ -37,7 +37,7 @@ class agent():
         self.food = 24 # if reaches 0, starvation occurs
         self.recovered = False
         
-        self.alive = True
+        self.is_alive = True
         
         self.cur_time = 0
     
@@ -80,13 +80,13 @@ class agent():
         self.cur_time+=1
         self.food -= 1 # Consume one food ## NOT CURRENTLY IMPLEMENTED
         
-        if (self.recovered and self.alive): # Recovery expiring
+        if (self.recovered and self.is_alive): # Recovery expiring
             self.immunity_timer -= 1
             
             if (self.immunity_timer <= 0):
                 self.recovered = False
         
-        if (self.is_sick and self.alive):
+        if (self.is_sick and self.is_alive):
             self.time_sick += 1
             
             if (self.time_sick >= Parameters.infection_period * 24):
@@ -126,7 +126,7 @@ class agent():
     
     def update_sim_with_state(self):
         
-        if (not self.alive):
+        if (not self.is_alive):
             self.dm.add_d()
         elif (self.is_sick):
             self.dm.add_i()
