@@ -52,7 +52,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
             while (found_loc == False):
                 loc = _locations[random.randint(0,len(_locations)-1)]
                 breaker += 1
-                if (not loc.type == "house" and not loc.type == "office" and not loc.type == "farm" and loc.max_capacity > len(loc.get_agents())):
+                if (not loc.type == "house" and not loc.type == "office" and not loc.type == "farm" and not loc.type == "hospital" and loc.max_capacity > len(loc.get_agents())):
                     found_loc = True
                 if (breaker > 10):
                     found_loc = True
@@ -122,7 +122,7 @@ def run_quick_sim_v2( _print_interval = 4 ):
     print_interval = _print_interval
     time_until_next_print = print_interval
         
-    month_range = 12
+    month_range = 60
     
     for i in range(int(month_range * 30 * 24)):
         

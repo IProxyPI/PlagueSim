@@ -18,11 +18,11 @@
 #
 # // ------------------------------------------------------
 
-infection_chance = 0.05 # % per hour
+infection_chance = 0.15 # % per hour
 
 contagion_period = 14 # Days
 infection_period = 14 # Days
-immunity_period = 14 # days
+immunity_period = 60 # days
 time_before_symptoms_show = 3 # Undetectable during this period, unless at hospital
 lethality_rate = 5 # % chance of death
 
@@ -100,6 +100,6 @@ people_per_household = 3 # Actual US average is 2.5, but unfortuanatly we do not
 workers_per_retail = 9 # Rough data from online
 workers_per_recreation = 9 # Assumed same as retail, bad assumption but hey, will fix later
 workers_per_hospital = 20 # Unfortuanatly the average of roughly 1000 employees per hospital is too large for this sim
-workers_per_office = 40 # same issue as the hospital
+workers_per_office = 30 # same issue as the hospital
 workers_per_farm = 20 # same issue as the hospital
 hospital_capacity = workers_per_hospital/4 # To compensate we will consider the average of 4 employees per patient. Over this will overwork a hospital
