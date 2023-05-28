@@ -20,7 +20,21 @@ class sim_data_manager():
         
     def get_sird(self):
         return self.sird
-
+    
+    def add_s(self):
+        self.sird[0] += 1
+        
+    def add_i(self):
+        self.sird[1] += 1
+        
+    def add_r(self):
+        self.sird[2] += 1
+        
+    def add_d(self):
+        self.sird[3] += 1
+        
+    
+    
 def create_agent( _dm ):
     
     output_agent = Agent.agent()

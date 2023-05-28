@@ -92,6 +92,8 @@ class agent():
                     self.dm.event_list.append(Events.recovered_event(self.cur_time))
                     self.is_sick = False
                     self.recovered = True
+                    
+        self.update_sim_with_state()
     
     def sick(self):
         return self.is_sick
@@ -114,6 +116,17 @@ class agent():
     
     def get_schedule(self):
         return self.schedule
+    
+    def update_sim_with_state(self):
+        
+        if (not self.alive):
+            self.dm.add_d()
+        elif (self.is_sick):
+            self.dm.add_i()
+        elif (self.recovered):
+            self.dm.add_r()
+        else:
+            self.dm.add_s()
     
     def gen_temp_schedule(self):
         self.schedule = [   "sleep",        #0
