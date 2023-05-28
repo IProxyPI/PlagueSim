@@ -32,7 +32,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
         schedule = cur.get_schedule()
         cur_action = schedule[_time%24]
         
-        if (cur.sick() and cur.will_stay_home_if_sick):
+        if (cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show):
             cur.home_location.add_agent_to_location(cur)
         
         elif (cur_action == "sleep"):
@@ -48,10 +48,15 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
         else:
             found_loc = False
             loc = None
+            breaker = 0
             while (found_loc == False):
                 loc = _locations[random.randint(0,len(_locations)-1)]
-                if (not loc.type == "house" and loc.max_capacity > len(loc.get_agents())):
+                breaker += 1
+                if (not loc.type == "house" and not loc.type == "office" and not loc.type == "farm" and loc.max_capacity > len(loc.get_agents())):
                     found_loc = True
+                if (breaker > 10):
+                    found_loc = True
+                    loc = cur.home_location
             loc.add_agent_to_location(cur)
             
             if (_tracker == i):

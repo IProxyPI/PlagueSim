@@ -86,7 +86,7 @@ class recreation(location_parent):
     def __init__(self):
         location_parent.__init__(self)
         self.max_capacity = Parameters.workers_per_recreation
-        self.type = "reacreation"
+        self.type = "recreation"
 
 
 
