@@ -60,8 +60,8 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     for i in range(_cur_time):
         susceptable_people[i] = _state_events[i].get_vals()[0]
         infected_people[i] = _state_events[i].get_vals()[1]
-        #dead_people[i] = _state_events[i].get_vals()[0]
-        starved_people[i] = _state_events[i].get_vals()[3]
+        dead_people[i] = _state_events[i].get_vals()[3]
+        #starved_people[i] = _state_events[i].get_vals()[3]
         recovered_people[i] = _state_events[i].get_vals()[2]
         
         

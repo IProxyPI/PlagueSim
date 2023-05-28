@@ -30,7 +30,7 @@ class agent():
         self.immune_compromised = False # If disease = death
          
         self.exposure_timer = 0 # If exposed, # of hours before exposure/staying home status ends
-        
+        self.immunity_timer = 0 # How long recovery immunity lasts
         
         self.is_sick = False
         self.time_sick = 0
@@ -80,11 +80,17 @@ class agent():
         self.cur_time+=1
         self.food -= 1 # Consume one food ## NOT CURRENTLY IMPLEMENTED
         
+        if (self.recovered and self.alive): # Recovery expiring
+            self.immunity_timer -= 1
+            
+            if (self.immunity_timer <= 0):
+                self.recovered = False
+        
         if (self.is_sick and self.alive):
             self.time_sick += 1
             
             if (self.time_sick >= Parameters.infection_period * 24):
-                if (rand.random() * 100 <= Parameters.lethality_rate):
+                if (rand.random() * 100 <= Parameters.lethality_rate or self.immune_compromised):
                     
                     self.dm.event_list.append(Events.infection_death_event(self.cur_time))
                     self.is_alive = False
@@ -92,6 +98,7 @@ class agent():
                     self.dm.event_list.append(Events.recovered_event(self.cur_time))
                     self.is_sick = False
                     self.recovered = True
+                    self.immunity_timer = Parameters.immunity_period * 24
                     
         self.update_sim_with_state()
     
