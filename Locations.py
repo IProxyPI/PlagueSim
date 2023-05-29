@@ -213,19 +213,19 @@ def generate_micro_city():
     required_civilians = 0
     factor = 1
     
-    for i in range(random.randint(2,7)*factor):
+    for i in range(6*factor):
         output_data.add_location(grocery())
         required_civilians += Parameters.workers_per_retail
         
-    for i in range(random.randint(1,1)*factor):
+    for i in range(1*factor):
         output_data.add_location(hospital())
         required_civilians += Parameters.workers_per_hospital
         
-    for i in range(random.randint(1,3)*factor):
+    for i in range(4*factor):
         output_data.add_location(office())
         required_civilians += Parameters.workers_per_office
         
-    for i in range(random.randint(1,6)*factor):
+    for i in range(3*factor):
         output_data.add_location(recreation())
         required_civilians += Parameters.workers_per_recreation
     
@@ -235,10 +235,60 @@ def generate_micro_city():
     return output_data
         
 def generate_residental():
-    pass
+    output_data = neighborhood()
+    required_civilians = 0
+    factor = 1
+    
+    for i in range(12*factor):
+        output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_retail
+        
+    for i in range(8*factor):
+        output_data.add_location(recreation())
+        required_civilians += Parameters.workers_per_recreation
+    
+    for i in range(round(required_civilians/3)+1):
+        output_data.add_location(house())
+    
+    return output_data
 
 def generate_business():
-    pass
+    output_data = neighborhood()
+    required_civilians = 0
+    factor = 1
+    
+    for i in range(6*factor):
+        output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_retail
+        
+    for i in range(8*factor):
+        output_data.add_location(office())
+        required_civilians += Parameters.workers_per_office
+        
+    for i in range(4*factor):
+        output_data.add_location(recreation())
+        required_civilians += Parameters.workers_per_recreation
+    
+    for i in range(round(required_civilians/3)+1):
+        output_data.add_location(house())
+    
+    return output_data
 
 def generate_hospital():
-    pass
+    output_data = neighborhood()
+    required_civilians = 0
+    factor = 1
+    
+
+    for i in range(1*factor):
+        output_data.add_location(hospital())
+        required_civilians += Parameters.workers_per_hospital
+    for i in range(4*factor):
+        output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_retail
+
+    
+    for i in range(round(required_civilians/3)+1):
+        output_data.add_location(house())
+    
+    return output_data

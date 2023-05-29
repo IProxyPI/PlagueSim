@@ -93,6 +93,11 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
         
     c = Locations.city()
     c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+    for i in range(4):
+        c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
+    for i in range(2):
+        c.add_neighborhood(Locations.generate_neighborhood_set("business"))
+            
     
     sim.configure( cities = [c], sim_time = _time, print_interval = _print_interval, live_graph = True )
     sim.populate_cities()
@@ -108,6 +113,8 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
         _locations[i].clear_contents()
     
     agent_list = _dm.agent_list
+    
+    random.shuffle(agent_list)
     for i in range(len(agent_list)):
         cur = agent_list[i]
         
@@ -143,7 +150,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
             
             if (_tracker == i):
                 print("Agent is bored, moved to " + str(loc))
-
+        
 def infect_random_agents(_dm, _num_to_infect):
     
     agent_list = _dm.agent_list
@@ -181,7 +188,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
             
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
     
-run_quick_sim_v2(6, -1)
+run_quick_sim_v2(6, 100)
 
 # // Runs all tests
 
