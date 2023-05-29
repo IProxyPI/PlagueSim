@@ -87,7 +87,7 @@ def run_quick_sim_v2( _print_interval = 4 ):
     print_interval = _print_interval
     time_until_next_print = print_interval
         
-    month_range = 1
+    month_range = 60
     
     for i in range(int(month_range * 30 * 24)):
         
@@ -108,18 +108,7 @@ def run_quick_sim_v2( _print_interval = 4 ):
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
             Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-        
-        prog = i * 100 / (month_range * 30 * 24)
-        
-        complete = ""
-        for i in range(int(prog)):
-            complete += "="
-        incomplete = ""
-        for i in range(100-int(prog)):
-            incomplete += "-"
-        
-        print("#" + complete + incomplete + "#")
-    
+            print_progress_bar(i / (month_range * 30 * 24), 3)
     
         
     print("# -------------------------------------------------------------")
@@ -129,7 +118,24 @@ def run_quick_sim_v2( _print_interval = 4 ):
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
     Visuals.print_stat_analysis(dm.event_list, dm.state_events)
-run_quick_sim_v2(200)
+    
+def print_progress_bar( prog, scale_factor ):
+    
+    base_size = 100
+    
+    prog *= base_size * scale_factor
+    
+    complete = ""
+    for i in range(int(prog)):
+        complete += "="
+    incomplete = ""
+    for i in range(int(base_size * scale_factor)-int(prog)):
+        incomplete += "-"
+    
+    print("#" + complete + incomplete + "#")
+
+    
+run_quick_sim_v2(50)
 
 # // Runs all tests
 
