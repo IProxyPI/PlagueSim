@@ -57,6 +57,7 @@ def print_stat_analysis( analysis ):
     print("Total cumulative infections : " + str(analysis[2]))
     print()
     print("Population percentage dead : " + str(int(1000*(analysis[1]/analysis[0]))/10) + "%")
+    print("Population percentage never infected : " + str(analysis[3])
 
     
 

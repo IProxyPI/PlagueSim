@@ -132,7 +132,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
             
             if (_tracker == i):
                 print("Agent is sleeping, moved to " + str(cur.home_location))
-        elif (cur_action == "work" and len(cur.work_location.get_agents()) < cur.work_location.max_capacity):
+        elif (cur_action == "work" and len(cur.work_location.get_agents()) < cur.work_location.max_capacity and (_time/24)%7 > 2:
             cur.work_location.add_agent_to_location(cur)
             
             if (_tracker == i):
@@ -184,14 +184,19 @@ def print_progress_bar( prog, scale_factor ):
 def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
     
     total_infections = 0
+    uninfected = 0
     
     for event in _list_of_events:
         if (event.get_type() == "Infection"):
             total_infections += 1   
-            
-    return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
+     
+    for agent in _list_of_agents:
+        if (agent.never_infected):
+            uninfected += 1   
+           
+    return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections, uninfected]
     
-run_quick_sim_v2(2, 100)
+run_quick_sim_v2(60, 100)
 
 # // Runs all tests
 

@@ -40,6 +40,8 @@ class agent():
         self.is_alive = True
         
         self.cur_time = 0
+        
+        self.never_infected = True
     
     def attempt_infect_others(self, _agent_list):
         
@@ -75,6 +77,7 @@ class agent():
     def infect(self, infector = None):
         self.is_sick = True
         self.time_sick = 0
+        self.never_infected = False
         
         self.dm.event_list.append(Events.infection_event(self.cur_time))
     
