@@ -44,7 +44,7 @@ class agent():
     def attempt_infect_others(self, _agent_list):
         
         
-        if (self.is_sick and self.is_contagious()):
+        if (self.is_contagious() and self.is_alive):
             
             # Gets basic outgoing chances from this agents parameters
             outgoing_airborne_infection_chance = Parameters.infection_chance * Parameters.airborne_infection_percentage * 0.0001
@@ -65,7 +65,8 @@ class agent():
                         final_airborne *= Parameters.mask_infection_reduction*0.01
                     if (cur_agent.will_wash_hands()):
                         final_contact *= Parameters.hand_washing_infection_reduction*0.01
-                    if (rand.random()) < (final_airborne + final_contact):
+                    r = rand.random()
+                    if (r < (final_airborne + final_contact)):
                         cur_agent.infect( self )
                 if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24):
                     cur_agent.exposure_timer = Parameters.time_considered_exposed

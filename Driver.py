@@ -181,7 +181,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
             
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
     
-run_quick_sim_v2(6, 100)
+run_quick_sim_v2(6, -1)
 
 # // Runs all tests
 
