@@ -75,6 +75,7 @@ class state_event():
         self.infected = 0
         self.recovered = 0
         self.dead = 0
+        self.type = "State"
         
     def get_time(self):
         return self.time
