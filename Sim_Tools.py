@@ -13,10 +13,10 @@ class sim_data_manager():
         self.agent_list = []
         self.location_list = [] # Current unused
         self.state_events = []
-        self.sird = [0, 0, 0, 0]
+        self.sird = [0, 0, 0, 0, 0, 0]
         
     def reset_sird(self):
-        self.sird = [0, 0, 0, 0]
+        self.sird = [0, 0, 0, 0, 0, 0]
         
     def get_sird(self):
         return self.sird
@@ -32,6 +32,12 @@ class sim_data_manager():
         
     def add_d(self):
         self.sird[3] += 1
+        
+    def add_hi(self):
+        self.sird[4] += 1
+        
+    def add_si(self):
+        self.sird[5] += 1
         
     
     

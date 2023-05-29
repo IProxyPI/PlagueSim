@@ -167,5 +167,5 @@ class agent():
                             "free",        #19
                             "free",        #20
                             "free",        #21
-                            "sleep",        #22
+                            "free",        #22
                             "sleep"]        #23

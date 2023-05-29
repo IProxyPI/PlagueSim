@@ -18,7 +18,7 @@
 #
 # // ------------------------------------------------------
 
-infection_chance = 0.25 # % per hour
+infection_chance = 0.5 # % per hour
 
 contagion_period = 15 # Days
 infection_period = 15 # Days
@@ -43,7 +43,7 @@ contact_infection_percentage = 100 - airborne_infection_percentage
 # // ------------------------------------------------------
 
 # Masks affect airborne infections
-mask_infection_reduction = 20 # %. This applies for each mask worn, aka infector and suspectible
+mask_infection_reduction = 56 # %. This applies for each mask worn, aka infector and suspectible
 # Hand washing affects contact infections
 hand_washing_infection_reduction = 20 # %. This applies individually, aka infector and suspectible
 

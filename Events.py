@@ -75,6 +75,8 @@ class state_event():
         self.infected = 0
         self.recovered = 0
         self.dead = 0
+        self.healthy_isolation = 0
+        self.sick_isolation = 0
         self.type = "State"
         
     def get_time(self):
@@ -88,6 +90,8 @@ class state_event():
         self.infected = _in[1]
         self.recovered = _in[2]
         self.dead = _in[3]
+        self.healthy_isolation = _in[4]
+        self.sick_isolation = _in[5]
     
     def get_vals(self):
-        return [self.susceptable, self.infected, self.recovered, self.dead]
+        return [self.susceptable, self.infected, self.recovered, self.dead, self.healthy_isolation, self.sick_isolation]
