@@ -165,10 +165,6 @@ def test_agent_personality_distribution():
         test_failed()
     
     print()
- 
-def test_visualization():
-    pass
-# // Helper methods
 
 def within_tol( _a, _b, _tol = 0.001 ):
     return abs(_a-_b) < _tol

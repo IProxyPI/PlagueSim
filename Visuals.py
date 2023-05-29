@@ -5,25 +5,6 @@ import Events
 import numpy as np
 import matplotlib.pyplot as plt
 
-#   NOTES:
-#   Locations have a capacity, and list of agents within the location.
-#   Agents hold within themselves all data relating to their current state.
-#
-#   Access:
-#
-#   loc = Locations.house()
-#   OR (for loc in _list_of_all_locations)
-#
-#   loc.get_agents(self): Returns all agents at this house
-#
-#   loc.get_capacity(self): Returns the capacity of the house for drawing
-#
-#   agent = Agent.agent()
-#   OR (for agent in _list_of_all_agents)
-#
-#   agent.sick(self): Returns if this agent is currently sick
-
-
 def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events, accumlative = False ):
 
     susceptable_people = np.full(_cur_time, 0)
@@ -32,7 +13,7 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     starved_people = np.full(_cur_time, 0)
     recovered_people = np.full(_cur_time, 0)
     
-    if (not accumlative): # Temporarily disabled while I implement the new solution
+    if (not accumlative):
         for event in _list_of_events:
             time = event.get_time()-1
     
@@ -62,15 +43,14 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     plt.legend(loc = "upper left")
     plt.show()
     
-def print_stat_analysis( _list_of_events, _list_of_state_events ):
+def print_stat_analysis( analysis ):
     
-    total_infections = 0
     
-    for event in _list_of_events:
-        if (event.get_type() == "Infection"):
-            total_infections += 1
-    print("Total deaths : " + str(_list_of_state_events[-1].get_vals()[3]))
-    print("Total cumulative infections : " + str(total_infections))
+    
+    print("Total population : " + str(analysis[0]))
+    print("Total deaths : " + str(analysis[1]))
+    print("Total cumulative infections : " + str(analysis[2]))
+
     
 
 def print_map_data( _list_of_all_locations ):

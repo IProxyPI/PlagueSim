@@ -117,7 +117,9 @@ def run_quick_sim_v2( _print_interval = 4 ):
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-    Visuals.print_stat_analysis(dm.event_list, dm.state_events)
+    
+    analysis = analyze_results(dm.event_list, dm.state_events, dm.agents_list)
+    Visuals.print_stat_analysis(analysis)
     
 def print_progress_bar( prog, scale_factor ):
     
@@ -134,6 +136,15 @@ def print_progress_bar( prog, scale_factor ):
     
     print("#" + complete + incomplete + "#")
 
+def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
+    
+    total_infections = 0
+    
+    for event in _list_of_events:
+        if (event.get_type() == "Infection"):
+            total_infections += 1   
+            
+    return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
     
 run_quick_sim_v2(50)
 

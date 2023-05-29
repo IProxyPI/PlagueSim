@@ -177,7 +177,7 @@ def populate_neighborhood(_neighborhood, _dm):
 def generate_city():
     output_data = neighborhood()
     required_civilians = 0
-    factor = 15
+    factor = 1
     
     for i in range(random.randint(2,7)*factor):
         output_data.add_location(grocery())
