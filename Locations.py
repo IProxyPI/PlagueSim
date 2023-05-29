@@ -88,7 +88,41 @@ class recreation(location_parent):
         self.max_capacity = Parameters.workers_per_recreation
         self.type = "recreation"
 
+class city():
+    
+    def __init__(self):
+        
+        self.neighborhoods = []
+        
+    def add_neighborhood(self, _loc):
+        self.neighborhoods.append(_loc)
+        
+    def update(self):
+        
+        for n in self.neighborhoods:
+            n.update()
+    
+    def get_all_agents(self):
+        
+        agent_list = []
+        for n in self.neighborhoods:
+            agent_list += n.get_all_agents()
+            
+        return agent_list
+    
+    def get_locations(self):
+        loc = []
+        for n in self.neighborhoods:
+            loc += n.get_locations()
+        return loc
 
+    def clear_all_location_agents(self):
+        for n in self.neighborhoods:
+            n.clear_all_location_agents()
+    
+    def populate_city(self, _dm):
+        for n in self.neighborhoods:
+            populate_neighborhood(n, _dm)
 
 class neighborhood():
     
@@ -134,8 +168,8 @@ class neighborhood():
 
 def generate_neighborhood_set(_type):
     
-    if (_type == "city"): # Complete miniature city, with all buildings
-        return generate_city()
+    if (_type == "micro city"): # Complete miniature city, with all buildings
+        return generate_micro_city()
     if (_type == "residental"): # Many houses and recreation
         return generate_residental()
     if (_type == "business"): # Many offices and grocery
@@ -174,7 +208,7 @@ def populate_neighborhood(_neighborhood, _dm):
             residents_left -= 1
             
     
-def generate_city():
+def generate_micro_city():
     output_data = neighborhood()
     required_civilians = 0
     factor = 1

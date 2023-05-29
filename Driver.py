@@ -16,9 +16,89 @@ class simulation():
     
     def __init__(self):
         
-        self.agent_list = [] # Holds all active agents in this simulation
-        self.events_list = [] # Holds all events that occurred over the simulation
-        self.location_list = [] # Holds all of the locations
+        self.dm = Sim_Tools.sim_data_manager()
+        self.configured = False
+        self.analysis = []
+    
+    # cities = an array of cities to be used within the simulation
+    # sim_time = months to sim
+    # print_interval = number of steps inbetween each print
+    # live_graph = whether to print the graph at each interval
+    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True):
+        self.configured = True
+        
+        self.sim_time = sim_time
+        self.print_interval = print_interval
+        self.live_graph = live_graph
+        
+        self.cities = cities
+        
+    def run(self):
+        
+        dm = self.dm
+        
+        time = 0
+        time_until_next_print = self.print_interval
+            
+        month_range = 12
+        
+        for i in range(int(self.sim_time * 30 * 24)):
+            
+            dm.reset_sird()
+            
+            for city in self.cities:
+                place_agents_in_world(time, dm, city.get_locations())
+                city.update()
+            time+=1
+            
+            
+            cur_state = Events.state_event(time)
+            cur_state.set_vals(dm.get_sird())
+            dm.event_list.append(cur_state)
+            dm.state_events.append(cur_state)
+
+            if (self.print_interval != -1):
+                time_until_next_print -= 1
+                if (time_until_next_print <= 0):
+                    if (self.live_graph):
+                        time_until_next_print = self.print_interval
+                        Visuals.print_data_graphs(dm.event_list, time, len(dm.agent_list), dm.state_events, True)
+                    print_progress_bar(i / (month_range * 30 * 24), 3)
+        
+            
+        print("# -------------------------------------------------------------")
+        print("#                Simulation complete")
+        print("# -------------------------------------------------------------")
+        # Final Print
+        
+        self.analysis = analyze_results(dm.event_list, dm.state_events, dm.agent_list)
+        
+    def print_analysis(self):
+        
+        Visuals.print_data_graphs(self.dm.event_list, self.sim_time * 30 * 24, len(self.dm.agent_list), self.dm.state_events, False)
+        Visuals.print_data_graphs(self.dm.event_list, self.sim_time * 30 * 24, len(self.dm.agent_list), self.dm.state_events, True)
+        Visuals.print_stat_analysis(self.analysis)
+
+    def infect_random_agents(self, count):
+        infect_random_agents(self.dm, count)
+        
+    def populate_cities(self):
+        for city in self.cities:
+            city.populate_city(self.dm)
+    
+def run_quick_sim_v2():
+    
+    sim = simulation()
+   
+        
+    c = Locations.city()
+    c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+    
+    sim.configure( cities = [c], sim_time = 2, print_interval = 20, live_graph = True )
+    sim.populate_cities()
+    sim.infect_random_agents(3)
+    
+    sim.run()
 
 def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
     
@@ -73,54 +153,7 @@ def infect_random_agents(_dm, _num_to_infect):
             _num_to_infect-=1
 
 
-def run_quick_sim_v2( _print_interval = 4 ):
-    
-    dm = Sim_Tools.sim_data_manager()
-    
-    city = Locations.generate_neighborhood_set("city")
-    Locations.populate_neighborhood(city, dm)
-    infect_random_agents(dm, 3)
-    
-    total_agents = len(dm.agent_list)
-    print(len(dm.agent_list))
-    time = 0
-    print_interval = _print_interval
-    time_until_next_print = print_interval
-        
-    month_range = 60
-    
-    for i in range(int(month_range * 30 * 24)):
-        
-        dm.reset_sird()
-        
-        place_agents_in_world(time, dm, city.get_locations())
-        city.update()
-        time+=1
-        
-        
-        cur_state = Events.state_event(time)
-        cur_state.set_vals(dm.get_sird())
-        dm.event_list.append(cur_state)
-        dm.state_events.append(cur_state)
 
-
-        time_until_next_print -= 1
-        if (time_until_next_print <= 0):
-            time_until_next_print = print_interval
-            Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-            print_progress_bar(i / (month_range * 30 * 24), 3)
-    
-        
-    print("# -------------------------------------------------------------")
-    print("#                Simulation complete")
-    print("# -------------------------------------------------------------")
-    # Final Print
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, False)
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-    
-    analysis = analyze_results(dm.event_list, dm.state_events, dm.agents_list)
-    Visuals.print_stat_analysis(analysis)
-    
 def print_progress_bar( prog, scale_factor ):
     
     base_size = 100
@@ -146,7 +179,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
             
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
     
-run_quick_sim_v2(50)
+run_quick_sim_v2()
 
 # // Runs all tests
 
