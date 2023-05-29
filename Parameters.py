@@ -20,11 +20,12 @@
 
 infection_chance = 0.15 # % per hour
 
-contagion_period = 14 # Days
-infection_period = 14 # Days
-immunity_period = 60 # days
+contagion_period = 10 # Days
+infection_period = 10 # Days
+immunity_period = 90 # days
 time_before_symptoms_show = 3 # Undetectable during this period, unless at hospital
-lethality_rate = 5 # % chance of death
+lethality_rate = 1.1 # % chance of death
+time_considered_exposed = contagion_period
 
 # Airborn VS contact is the ratio of infection chance that comes from 
 # airborn means, vs direct contact means. These relate to different protection
@@ -66,7 +67,7 @@ vaccine_duration_reduction = 50 # %. How long the sick time is reduced for
 # These chances are rolled on every individual to determine their behaviours during
 # the simulation
 perc_stay_home_if_sick = 20 # %
-perc_mask_if_sick = 20 # %
+perc_mask_if_sick = 41 # %
 perc_will_announce_if_sick = 20 # %
 perc_washes_hands_if_sick = 20 # %
 

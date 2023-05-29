@@ -67,6 +67,8 @@ class agent():
                         final_contact *= Parameters.hand_washing_infection_reduction*0.01
                     if (rand.random()) < (final_airborne + final_contact):
                         cur_agent.infect( self )
+                if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24):
+                    cur_agent.exposure_timer = Parameters.time_considered_exposed
                 
     # Add infection event here
     def infect(self, infector = None):
@@ -79,6 +81,9 @@ class agent():
         
         self.cur_time+=1
         self.food -= 1 # Consume one food ## NOT CURRENTLY IMPLEMENTED
+        
+        if (self.exposure_timer > 0):
+            self.exposure_timer -= 1
         
         if (self.recovered and self.is_alive): # Recovery expiring
             self.immunity_timer -= 1
@@ -108,12 +113,15 @@ class agent():
     def is_contagious(self):
         return self.is_sick and self.time_sick <= Parameters.contagion_period * 24
     
+    def is_exposed(self):
+        return self.exposure_timer >= 0
+    
     def number_of_hours_sick_for(self):
         return self.time_sick
     
     # STUBS HERE
     def is_masked(self):
-        return False
+        return self.is_exposed() and self.will_mask_if_exposed or self.is_sick and self.will_mask_if_sick
     
     def will_wash_hands(self):
         return False

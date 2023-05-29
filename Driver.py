@@ -32,7 +32,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
         schedule = cur.get_schedule()
         cur_action = schedule[_time%24]
         
-        if (cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show):
+        if ((cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show * 24) or (cur.is_exposed() and cur.will_stay_home_if_exposed)):
             cur.home_location.add_agent_to_location(cur)
         
         elif (cur_action == "sleep"):
@@ -72,41 +72,6 @@ def infect_random_agents(_dm, _num_to_infect):
             cur.infect()
             _num_to_infect-=1
 
-# // Simulation execution functions
-
-def run_quick_sim( _print_interval = 4 ):
-    dm = Sim_Tools.sim_data_manager()
-    l = Locations.location_parent()
-    
-    total_agents = 1000
-    
-    for i in range(total_agents-1):
-        l.add_agent_to_location(Sim_Tools.create_agent(dm))
-    
-    a = Sim_Tools.create_agent(dm)
-    a.infect()
-    
-    l.add_agent_to_location(a)
-    time = 1
-    
-    print_interval = _print_interval
-    time_until_next_print = print_interval
-    
-    for i in range(1000):
-        
-        l.update()
-        time+=1
-        l.attempt_internal_infections()
-        time_until_next_print -= 1
-        if (time_until_next_print <= 0):
-            time_until_next_print = print_interval
-            
-            Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), True)
-    
-    # Final Print
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), False)
-    Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.get_sird(), True)
-#run_quick_sim(20)
 
 def run_quick_sim_v2( _print_interval = 4 ):
     
@@ -122,7 +87,7 @@ def run_quick_sim_v2( _print_interval = 4 ):
     print_interval = _print_interval
     time_until_next_print = print_interval
         
-    month_range = 2
+    month_range = 60
     
     for i in range(int(month_range * 30 * 24)):
         
