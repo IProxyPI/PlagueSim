@@ -108,11 +108,23 @@ def run_quick_sim_v2( _print_interval = 4 ):
         if (time_until_next_print <= 0):
             time_until_next_print = print_interval
             Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-        print(str(i) + " of " + str(month_range * 30 * 24))
+        
+        prog = i * 100 / (month_range * 30 * 24)
+        
+        complete = ""
+        for i in range(int(prog)):
+            complete += "="
+        incomplete = ""
+        for i in range(100-int(prog)):
+            incomplete += "-"
+        
+        print("#" + complete + incomplete + "#")
     
     
         
-    
+    print("# -------------------------------------------------------------")
+    print("#                Simulation complete")
+    print("# -------------------------------------------------------------")
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
