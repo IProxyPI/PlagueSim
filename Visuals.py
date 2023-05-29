@@ -32,15 +32,20 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
             dead_people[i] = _state_events[i].get_vals()[3]
             #starved_people[i] = _state_events[i].get_vals()[3]
             recovered_people[i] = _state_events[i].get_vals()[2]
+            
+            
+    size_factor = 0.005
+    plt.figure().set_figwidth(size_factor * _cur_time)
 
-    plt.ion()
-
+    plt.ion()  
+   
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
     plt.plot(dead_people, 'k-', label = "Dead")
     plt.plot(starved_people, 'y-', label = "Starved")
     plt.plot(recovered_people, 'g-', label = "Recovered")
     plt.legend(loc = "upper left")
+
     plt.show()
     
 def print_stat_analysis( analysis ):

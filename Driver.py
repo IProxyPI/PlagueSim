@@ -86,7 +86,7 @@ class simulation():
         for city in self.cities:
             city.populate_city(self.dm)
     
-def run_quick_sim_v2():
+def run_quick_sim_v2( _time = 2, _print_interval = 20):
     
     sim = simulation()
    
@@ -94,7 +94,7 @@ def run_quick_sim_v2():
     c = Locations.city()
     c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
     
-    sim.configure( cities = [c], sim_time = 2, print_interval = 20, live_graph = True )
+    sim.configure( cities = [c], sim_time = _time, print_interval = _print_interval, live_graph = True )
     sim.populate_cities()
     sim.infect_random_agents(3)
     
@@ -179,7 +179,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
             
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections]
     
-run_quick_sim_v2()
+run_quick_sim_v2(6, 100)
 
 # // Runs all tests
 
