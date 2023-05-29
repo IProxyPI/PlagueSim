@@ -66,9 +66,9 @@ class simulation():
                     print_progress_bar(i / (month_range * 30 * 24), 3)
         
             
-        print("# -------------------------------------------------------------")
-        print("#                Simulation complete")
-        print("# -------------------------------------------------------------")
+        print("# ---------------------------------------------------------- #")
+        print("#                    Simulation complete")
+        print("# ---------------------------------------------------------- #")
         # Final Print
         
         self.analysis = analyze_results(dm.event_list, dm.state_events, dm.agent_list)
@@ -99,6 +99,8 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     sim.infect_random_agents(3)
     
     sim.run()
+    sim.print_analysis()
+    
 
 def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
     
@@ -156,7 +158,7 @@ def infect_random_agents(_dm, _num_to_infect):
 
 def print_progress_bar( prog, scale_factor ):
     
-    base_size = 100
+    base_size = 40
     
     prog *= base_size * scale_factor
     
@@ -164,7 +166,7 @@ def print_progress_bar( prog, scale_factor ):
     for i in range(int(prog)):
         complete += "="
     incomplete = ""
-    for i in range(int(base_size * scale_factor)-int(prog)):
+    for i in range(int(base_size * scale_factor * 0.5)-int(prog)):
         incomplete += "-"
     
     print("#" + complete + incomplete + "#")
