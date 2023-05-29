@@ -87,7 +87,7 @@ def run_quick_sim_v2( _print_interval = 4 ):
     print_interval = _print_interval
     time_until_next_print = print_interval
         
-    month_range = 60
+    month_range = 1
     
     for i in range(int(month_range * 30 * 24)):
         
@@ -116,7 +116,8 @@ def run_quick_sim_v2( _print_interval = 4 ):
     # Final Print
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, False)
     Visuals.print_data_graphs(dm.event_list, time, total_agents, dm.state_events, True)
-run_quick_sim_v2(50)
+    Visuals.print_stat_analysis(dm.event_list, dm.state_events)
+run_quick_sim_v2(200)
 
 # // Runs all tests
 

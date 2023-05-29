@@ -34,7 +34,7 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     
     if (not accumlative): # Temporarily disabled while I implement the new solution
         for event in _list_of_events:
-            time = event.get_time()
+            time = event.get_time()-1
     
             if (event.get_type() == "Infection"):
                 infected_people[time] += 1
@@ -61,6 +61,17 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     plt.plot(recovered_people, 'g-', label = "Recovered")
     plt.legend(loc = "upper left")
     plt.show()
+    
+def print_stat_analysis( _list_of_events, _list_of_state_events ):
+    
+    total_infections = 0
+    
+    for event in _list_of_events:
+        if (event.get_type() == "Infection"):
+            total_infections += 1
+    print("Total deaths : " + str(_list_of_state_events[-1].get_vals()[3]))
+    print("Total cumulative infections : " + str(total_infections))
+    
 
 def print_map_data( _list_of_all_locations ):
     pass
