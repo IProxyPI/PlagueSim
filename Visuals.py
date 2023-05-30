@@ -58,13 +58,14 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     plt.plot(year_marker, 'k-')
     
     if (accumlative):
-        plt.plot(isolating_people, 'c-', label = "Isolating")
-        plt.plot(healthy_isolating_people, 'm-', label = "Exposure isolating")
-    plt.plot(susceptable_people, 'b-', label = "Susceptable")
+        #plt.plot(isolating_people, 'c-', label = "Isolating")
+        #plt.plot(healthy_isolating_people, 'm-', label = "Exposure isolating")
+        pass
+    #plt.plot(susceptable_people, 'b-', label = "Susceptable")
+    plt.plot(recovered_people, 'g-', label = "Recovered")
     plt.plot(infected_people, 'r-', label = "Infected")
     plt.plot(dead_people, 'k-', label = "Dead")
-    plt.plot(starved_people, 'y-', label = "Starved")
-    plt.plot(recovered_people, 'g-', label = "Recovered")
+    #plt.plot(starved_people, 'y-', label = "Starved")
     plt.legend(loc = "upper left")
 
     plt.show()
