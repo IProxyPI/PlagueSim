@@ -7,6 +7,7 @@ Lets try and keep this updated with all relevant information
 Many modules import eachother. To avoid circular dependancies, intentional or
 accidental, the flow of imports will be listed here:
 
+Config_And_Run - Driver
 Driver: Locations - Agent - Events - Testing_Module - Parameters - Resources - Sim_Tools - Visuals
 Agent:  Parameters - Resources - Sim_Tools
 Events: Locations - Agent - Parameters

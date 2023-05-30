@@ -211,7 +211,21 @@ def run_multiple_sims( _sim_count ):
     for i in range(_sim_count):
         pass
     
+def generate_world( _preset ):
+    c = Locations.city()
+    size_factor = 2
     
+    if (_preset == ""):
+        for i in range(1*size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+        for i in range(4*size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
+        for i in range(2*size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("business"))
+    return c    
+
+def execute( _sim_args ):
+    pass    
 
 run_quick_sim_v2(12, 100)
 
