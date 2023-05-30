@@ -4,6 +4,7 @@ import Parameters
 import Events
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.integrate import odeint
 
 def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events, accumlative = False ):
     
@@ -107,7 +108,24 @@ def compare_real_data_US( file, state = "Washington", county = "King" ):
             plt.plot(data, np.arange(0, length, 24), event_type[0], label = event_type[1])
             plt.show()
             break
-    
+  
+def sir_model( _total_agents = 1000, _total_days = 200, infect_rate = 0.02, recovery_days = 12 ):
+    susceptable = [_total_agents - 1]
+    infected = [1]
+    recovered = [0]
+
+    alpha = infect_rate / 100
+    R0 = alpha * _total_agents * recovery_days
+
+    for i in range(1, _total_days):
+        susceptable.append(susceptable[i - 1] - alpha * susceptable[i - 1] * infected[i - 1])
+        recovered.append(recovered[i - 1] + infected[i - 1] / recovery_days)
+        infected.append(infected[i - 1] + alpha * susceptable[i - 1] * infected[i - 1] - infected[i - 1] / recovery_days)
+
+    plt.plot(list(map(round, susceptable)), 'b--', label = "Susceptable (SIR)")
+    plt.plot(list(map(round, infected)), 'r--', label = "Infected (SIR)")
+    plt.plot(list(map(round, recovered)), 'g--', label = "Recovered (SIR)")
+
 def print_stat_analysis( analysis ):
     
     
