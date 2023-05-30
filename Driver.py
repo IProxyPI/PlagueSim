@@ -73,7 +73,9 @@ class simulation():
             
             if (cur_state.infected == 0):
                 i = int(self.sim_time * 30 * 24)
-            
+        
+        Visuals.sir_model()
+        
         print("# ---------------------------------------------------------- #")
         print("#                    Simulation complete")
         print("# ---------------------------------------------------------- #")
@@ -203,7 +205,14 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
             uninfected += 1   
            
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections, uninfected]
+
+def run_multiple_sims( _sim_count ):
     
+    for i in range(_sim_count):
+        pass
+    
+    
+
 run_quick_sim_v2(12, 100)
 
 # // Runs all tests

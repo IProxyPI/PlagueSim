@@ -108,7 +108,8 @@ def compare_real_data_US( file, state = "Washington", county = "King" ):
             plt.plot(data, np.arange(0, length, 24), event_type[0], label = event_type[1])
             plt.show()
             break
-  
+
+
 def sir_model( _total_agents = 1000, _total_days = 200, infect_rate = 0.02, recovery_days = 12 ):
     susceptable = [_total_agents - 1]
     infected = [1]
