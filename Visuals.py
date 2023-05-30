@@ -52,11 +52,49 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
     plt.plot(dead_people, 'k-', label = "Dead")
-    plt.plot(starved_people, 'y-', label = "Starved")
+    #plt.plot(starved_people, 'y-', label = "Starved")
     plt.plot(recovered_people, 'g-', label = "Recovered")
     plt.legend(loc = "upper left")
 
     plt.show()
+
+def compare_real_data_US( file, state = "Washington", county = "King" ):
+    name_check = file.split("_")
+    if (name_check[-1] != "US.csv"):
+        print("US county data only. Use compare_real_data_global().")
+        return
+    if (name_check[-2] == "confirmed"):
+        event_type = ["r--", "Infected"]
+    elif (name_check[-2] == "deaths"):
+        event_type = ["k--", "Dead"]
+    else:
+        print("Invalid file name format.")
+        return
+    
+    fobj = open(file, 'r')
+    read = (fobj.readlines())
+    fobj.close()
+
+    dates = np.array(read[0].split(',')[11:])
+    dates[-1] = dates[-1].strip()
+    length = len(dates) * 24
+
+    list = []
+
+    for i in range(len(read)):
+        line = read[i].split(',')[5:]
+        line[-1] = line[-1].strip()
+        list.append(line)
+
+    list = list[1:]
+    data = np.zeros(len(dates))
+
+    for i in range(len(list)):
+        if (county == list[i][0]) and (state == list[i][1]):
+            data = np.array(list[i][8:])
+            plt.plot(data, np.arange(0, length, 24), event_type[0], label = event_type[1])
+            plt.show()
+            break
     
 def print_stat_analysis( analysis ):
     
