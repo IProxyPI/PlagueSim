@@ -42,6 +42,9 @@ class agent():
         self.cur_time = 0
         
         self.never_infected = True
+        
+        self.times_infected = 0
+        self.times_infecting_others = 0
     
     def attempt_infect_others(self, _agent_list):
         
@@ -70,6 +73,7 @@ class agent():
                     r = rand.random()
                     if (r < (final_airborne + final_contact)):
                         cur_agent.infect( self )
+                        self.times_infecting_others += 1
                 if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24):
                     cur_agent.exposure_timer = Parameters.time_considered_exposed
                 
@@ -78,6 +82,7 @@ class agent():
         self.is_sick = True
         self.time_sick = 0
         self.never_infected = False
+        self.times_infected += 1
         
         self.dm.event_list.append(Events.infection_event(self.cur_time))
     
@@ -153,7 +158,30 @@ class agent():
                 self.dm.add_hi()
             elif (self.is_sick and self.will_stay_home_if_sick):
                 self.dm.add_si()
+    
+    def print_agent(self, _location ):
         
+        status = "Healthy"
+        if (not self.is_alive):
+            status = "Dead"
+        elif (self.is_sick):
+            status = "Sick"
+        elif (self.immunity_timer > 0):
+            status = "Recovering"
+        
+        print("# ----------------------------------------------- #")
+        print("# Agent                 : " + str(self))
+        print("# Location              : " + str(_location))
+        print("# Status                : " + status)
+        print("# ----------------------------------------------- #")
+        print("# Masks                 : " + str(self.will_mask_if_exposed))
+        print("# Washes handes         : " + str(self.washes_hands))
+        print("# Announces if sick     : " + str(self.will_announce_if_sick))
+        print("# Stays home if sick    : " + str(self.will_stay_home_if_sick))
+        print("# Times sick            : " + str(self.times_infected))
+        print("# Times infected others : " + str(self.times_infecting_others))
+        print("# ----------------------------------------------- #")
+    
     def gen_temp_schedule(self):
         self.schedule = [   "sleep",        #0
                             "sleep",        #1

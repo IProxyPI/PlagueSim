@@ -53,7 +53,7 @@ class simulation():
             dm.reset_sird()
             
             for city in self.cities:
-                place_agents_in_world(time, dm, city.get_locations())
+                place_agents_in_world(time, dm, city.get_locations(), 1)
                 city.update()
             time+=1
             
@@ -119,37 +119,34 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     sim.print_analysis()
     
 
-def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
+def place_agents_in_world(_time, _dm, _locations, _tracker = 1):
     
     for i in range(len(_locations)):
         _locations[i].clear_contents()
     
     agent_list = _dm.agent_list
     
-    random.shuffle(agent_list)
     for i in range(len(agent_list)):
                 
         cur = agent_list[i]
+        loc = None
         
         schedule = cur.get_schedule()
         cur_action = schedule[_time%24]
         
         if ((cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show * 24) or (cur.is_exposed() and cur.will_stay_home_if_exposed)):
             cur.home_location.add_agent_to_location(cur)
-        
+            loc = cur.home_location
+            
         elif (cur_action == "sleep"):
             cur.home_location.add_agent_to_location(cur)
+            loc = cur.home_location
             
-            if (_tracker == i):
-                print("Agent is sleeping, moved to " + str(cur.home_location))
         elif (cur_action == "work" and len(cur.work_location.get_agents()) < cur.work_location.max_capacity and (_time/24)%7 > 2):
             cur.work_location.add_agent_to_location(cur)
-            
-            if (_tracker == i):
-                print("Agent is working, moved to " + str(cur.work_location))
+            loc = cur.work_location
         else:
             found_loc = False
-            loc = None
             breaker = 0
             while (found_loc == False):
                 loc = _locations[random.randint(0,len(_locations)-1)]
@@ -160,9 +157,9 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
                     found_loc = True
                     loc = cur.home_location
             loc.add_agent_to_location(cur)
-            
-            if (_tracker == i):
-                print("Agent is bored, moved to " + str(loc))
+        
+        if (_tracker == i):
+            cur.print_agent(loc)
         
 def infect_random_agents(_dm, _num_to_infect):
     
@@ -259,7 +256,7 @@ def check_city_size(_preset):
 def execute( _sim_args ):
     pass    
 
-#run_quick_sim_v2(12, 100)
+run_quick_sim_v2(12, 100)
 
 # // Runs all tests
 

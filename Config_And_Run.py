@@ -32,6 +32,13 @@ world_preset = "Large city" # Preset for which city is generated and used in the
 #   "Small town" ~= Population 866 * world_Factor
 #   "Downtown" ~= Population 4942 * world_Factor
 
+# Set true the output/analysis that is desired
+analysis_checklist = [     False,       # Display real-time graph
+                           False,       # Real-time graph cumulative or not
+                           False,       # Track an agent
+                           False,
+                           False       ]
+
 # // ------------------------------------------------------
 #
 #           Building sim_args
@@ -46,4 +53,4 @@ sim_args = []
 #
 # // ------------------------------------------------------
 
-#Driver.execute( sim_args )
+Driver.execute( sim_args )
