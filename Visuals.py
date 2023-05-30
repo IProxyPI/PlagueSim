@@ -6,12 +6,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events, accumlative = False ):
-
+    
+    _cur_time = int(_cur_time)
+    
     susceptable_people = np.full(_cur_time, 0)
     infected_people = np.full(_cur_time, 0)
     dead_people = np.full(_cur_time, 0)
     starved_people = np.full(_cur_time, 0)
     recovered_people = np.full(_cur_time, 0)
+    isolating_people = np.full(_cur_time, 0)
+    healthy_isolating_people = np.full(_cur_time, 0)
+
     
     if (not accumlative):
         for event in _list_of_events:
@@ -32,6 +37,8 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
             dead_people[i] = _state_events[i].get_vals()[3]
             #starved_people[i] = _state_events[i].get_vals()[3]
             recovered_people[i] = _state_events[i].get_vals()[2]
+            isolating_people[i] = _state_events[i].get_vals()[5] + _state_events[i].get_vals()[4]
+            healthy_isolating_people[i] = _state_events[i].get_vals()[4]
             
             
     size_factor = 0.005
@@ -39,6 +46,9 @@ def print_data_graphs( _list_of_events, _cur_time, _total_agents, _state_events,
 
     plt.ion()  
    
+    if (accumlative):
+        plt.plot(isolating_people, 'o-', label = "Isolating")
+        plt.plot(healthy_isolating_people, 'v-', label = "Exposure isolating")
     plt.plot(susceptable_people, 'b-', label = "Susceptable")
     plt.plot(infected_people, 'r-', label = "Infected")
     plt.plot(dead_people, 'k-', label = "Dead")
@@ -57,7 +67,7 @@ def print_stat_analysis( analysis ):
     print("Total cumulative infections : " + str(analysis[2]))
     print()
     print("Population percentage dead : " + str(int(1000*(analysis[1]/analysis[0]))/10) + "%")
-    print("Population percentage never infected : " + str(analysis[3])
+    print("Population percentage never infected : " + str(int(1000*(analysis[3]/analysis[0]))/10) + "%")
 
     
 

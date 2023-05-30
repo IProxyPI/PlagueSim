@@ -92,19 +92,20 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     
     sim = simulation()
    
-    size_factor = 5
+    size_factor = 2
    
     c = Locations.city()
-    c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
-    for i in range(10*size_factor):
+    for i in range(1*size_factor):
+        c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+    for i in range(4*size_factor):
         c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
-    for i in range(8*size_factor):
+    for i in range(2*size_factor):
         c.add_neighborhood(Locations.generate_neighborhood_set("business"))
             
     
     sim.configure( cities = [c], sim_time = _time, print_interval = _print_interval, live_graph = True )
     sim.populate_cities()
-    sim.infect_random_agents(3)
+    sim.infect_random_agents(10)
     
     sim.run()
     sim.print_analysis()
@@ -132,7 +133,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
             
             if (_tracker == i):
                 print("Agent is sleeping, moved to " + str(cur.home_location))
-        elif (cur_action == "work" and len(cur.work_location.get_agents()) < cur.work_location.max_capacity and (_time/24)%7 > 2:
+        elif (cur_action == "work" and len(cur.work_location.get_agents()) < cur.work_location.max_capacity and (_time/24)%7 > 2):
             cur.work_location.add_agent_to_location(cur)
             
             if (_tracker == i):
@@ -168,7 +169,7 @@ def infect_random_agents(_dm, _num_to_infect):
 
 def print_progress_bar( prog, scale_factor ):
     
-    base_size = 40
+    base_size = 100
     
     prog *= base_size * scale_factor
     
@@ -176,7 +177,7 @@ def print_progress_bar( prog, scale_factor ):
     for i in range(int(prog)):
         complete += "="
     incomplete = ""
-    for i in range(int(base_size * scale_factor * 0.5)-int(prog)):
+    for i in range(int(base_size * scale_factor)-int(prog)):
         incomplete += "-"
     
     print("#" + complete + incomplete + "#")
@@ -196,7 +197,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
            
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections, uninfected]
     
-run_quick_sim_v2(60, 100)
+run_quick_sim_v2(6, 10)
 
 # // Runs all tests
 

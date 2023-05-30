@@ -118,7 +118,7 @@ class agent():
         return self.is_sick and self.time_sick <= Parameters.contagion_period * 24
     
     def is_exposed(self):
-        return self.exposure_timer >= 0
+        return self.exposure_timer > 0
     
     def number_of_hours_sick_for(self):
         return self.time_sick
@@ -146,7 +146,14 @@ class agent():
             self.dm.add_r()
         else:
             self.dm.add_s()
-    
+            
+        if (self.is_alive):
+            
+            if (self.is_exposed() and not self.is_sick and self.will_stay_home_if_exposed) : 
+                self.dm.add_hi()
+            elif (self.is_sick and self.will_stay_home_if_sick):
+                self.dm.add_si()
+        
     def gen_temp_schedule(self):
         self.schedule = [   "sleep",        #0
                             "sleep",        #1
