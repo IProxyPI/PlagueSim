@@ -115,7 +115,7 @@ class agent():
         return self.is_sick
     
     def is_contagious(self):
-        return self.is_sick and self.time_sick <= Parameters.contagion_period * 24
+        return self.is_sick and self.time_sick <= Parameters.contagion_period * 24 and self.time_sick >= 24
     
     def is_exposed(self):
         return self.exposure_timer > 0

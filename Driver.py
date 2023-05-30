@@ -44,6 +44,12 @@ class simulation():
         
         for i in range(int(self.sim_time * 30 * 24)):
             
+            if (i == 0.5 * 24 * 30 * 12):
+                Parameters.infection_chance *= 8
+            if (i == int(0.55 * 24 * 30 * 12)):
+                Parameters.infection_chance /= 12
+
+            
             dm.reset_sird()
             
             for city in self.cities:
@@ -63,7 +69,7 @@ class simulation():
                     if (self.live_graph):
                         time_until_next_print = self.print_interval
                         Visuals.print_data_graphs(dm.event_list, time, len(dm.agent_list), dm.state_events, True)
-                    print_progress_bar(i / (month_range * 30 * 24), 3)
+                    print_progress_bar(i / (month_range * 30 * 24), 1)
             
             if (cur_state.infected == 0):
                 i = int(self.sim_time * 30 * 24)
@@ -92,7 +98,7 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     
     sim = simulation()
    
-    size_factor = 2
+    size_factor = 1
    
     c = Locations.city()
     for i in range(1*size_factor):
@@ -120,6 +126,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = -1):
     
     random.shuffle(agent_list)
     for i in range(len(agent_list)):
+                
         cur = agent_list[i]
         
         schedule = cur.get_schedule()
@@ -197,7 +204,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
            
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections, uninfected]
     
-run_quick_sim_v2(6, 10)
+run_quick_sim_v2(12, 100)
 
 # // Runs all tests
 

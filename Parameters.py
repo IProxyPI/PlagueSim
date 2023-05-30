@@ -18,14 +18,14 @@
 #
 # // ------------------------------------------------------
 
-infection_chance = 0.25 # % per hour
+infection_chance = 0.15 # % per hour
 
-contagion_period = 15 # Days
-infection_period = 15 # Days
-immunity_period = 30 # days
+contagion_period = 12 # Days
+infection_period = 12 # Days
+immunity_period = 15 # days
 time_before_symptoms_show = 5.6 # Undetectable during this period, unless at hospital
 lethality_rate = 1.1 # % chance of death
-time_considered_exposed = contagion_period/2
+time_considered_exposed = time_before_symptoms_show
 
 # Airborn VS contact is the ratio of infection chance that comes from 
 # airborn means, vs direct contact means. These relate to different protection
