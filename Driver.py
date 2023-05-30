@@ -211,23 +211,55 @@ def run_multiple_sims( _sim_count ):
     for i in range(_sim_count):
         pass
     
-def generate_world( _preset ):
+def generate_world( _preset, _size_factor = 2 ):
     c = Locations.city()
-    size_factor = 2
     
-    if (_preset == ""):
-        for i in range(1*size_factor):
+    
+    if (_preset == "Mini city"):
+        for i in range(1*_size_factor):
             c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
-        for i in range(4*size_factor):
+        for i in range(4*_size_factor):
             c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
-        for i in range(2*size_factor):
+        for i in range(2*_size_factor):
             c.add_neighborhood(Locations.generate_neighborhood_set("business"))
+    
+    if (_preset == "Large city"):
+        for i in range(8*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+        for i in range(12*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
+        for i in range(8*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("business"))
+
+    if (_preset == "Small town"):
+        for i in range(1*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("hospital"))
+        for i in range(4*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("residental"))
+        for i in range(2*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("recreation"))
+    
+    if (_preset == "Downtown"):
+        for i in range(2*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("micro city"))
+        for i in range(12*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("recreation"))
+        for i in range(12*_size_factor):
+            c.add_neighborhood(Locations.generate_neighborhood_set("business"))
+    
     return c    
 
+def check_city_size(_preset):
+    c = generate_world(_preset, 1)
+    sim = simulation()
+    sim.configure( [c] )
+    sim.populate_cities()
+    return len(sim.dm.agent_list)
+    
 def execute( _sim_args ):
     pass    
 
-run_quick_sim_v2(12, 100)
+#run_quick_sim_v2(12, 100)
 
 # // Runs all tests
 

@@ -176,6 +176,8 @@ def generate_neighborhood_set(_type):
         return generate_business()
     if (_type == "hospital"): # Some houses, offices, grocery and hospital
         return generate_hospital()
+    if (_type == "recreation"): # Some houses, offices, and recreation
+        return generate_recreation()
 
 def populate_neighborhood(_neighborhood, _dm):
     
@@ -285,6 +287,25 @@ def generate_hospital():
         required_civilians += Parameters.workers_per_hospital
     for i in range(4*factor):
         output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_retail
+
+    
+    for i in range(round(required_civilians/3)+1):
+        output_data.add_location(house())
+    
+    return output_data
+
+def generate_recreation():
+    output_data = neighborhood()
+    required_civilians = 0
+    factor = 1
+    
+
+    for i in range(1*factor):
+        output_data.add_location(grocery())
+        required_civilians += Parameters.workers_per_hospital
+    for i in range(4*factor):
+        output_data.add_location(recreation())
         required_civilians += Parameters.workers_per_retail
 
     
