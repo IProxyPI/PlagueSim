@@ -63,7 +63,7 @@ class simulation():
                     if (self.live_graph):
                         time_until_next_print = self.print_interval
                         Visuals.print_data_graphs(dm.event_list, time, len(dm.agent_list), dm.state_events, True)
-                    print_progress_bar(i / (month_range * 30 * 24), 3)
+                    print_progress_bar(i / (month_range * 30 * 24), 1)
             
             if (cur_state.infected == 0):
                 i = int(self.sim_time * 30 * 24)
@@ -92,7 +92,7 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     
     sim = simulation()
    
-    size_factor = 2
+    size_factor = 5
    
     c = Locations.city()
     for i in range(1*size_factor):
@@ -197,7 +197,7 @@ def analyze_results( _list_of_events, _list_of_state_events, _list_of_agents ):
            
     return [len(_list_of_agents), _list_of_state_events[-1].get_vals()[3], total_infections, uninfected]
     
-run_quick_sim_v2(6, 10)
+run_quick_sim_v2(6, 100)
 
 # // Runs all tests
 
