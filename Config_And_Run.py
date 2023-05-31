@@ -22,10 +22,10 @@ import Driver
 simulation_time = 2 # Months
 print_interval = 200 # Time steps between graph/progress bar prints. -1 to disable
 
-world_factor = 2 # Factor to multiply city size by
+world_factor = 1 # Factor to multiply city size by
 world_preset = "Small town" # Preset for which city is generated and used in the simulation.
 
-number_of_simulations = 1 # Number of times the simulation is run, results are averaged
+number_of_simulations = 10 # Number of times the simulation is run, results are averaged
 
 #   Available world presets:
 #   

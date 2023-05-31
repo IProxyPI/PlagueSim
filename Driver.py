@@ -303,8 +303,16 @@ def execute( _sim_args ):
         
         sim.run()
         sim.print_analysis()
+    print("# ---------------------------------------------------------- #")
+    print("#                    All simulations complete")
+    print("# ---------------------------------------------------------- #")
     
-
+    avg_dead_perc = 0
+    for sim in sim_list:
+        avg_dead_perc += int(1000*(sim.analysis[1]/sim.analysis[0]))/10
+    
+    print("# Average population percentage dead : " + str(avg_dead_perc/len(sim_list)) + "%")
+    
 #run_quick_sim_v2(6, 100)
 
 # // Runs all tests
