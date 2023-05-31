@@ -36,13 +36,13 @@ number_of_simulations = 5 # Number of times the simulation is run, results are a
 
 # Set true the output/analysis that is desired
 analysis_checklist = [     True,       # Display real-time graph
-                           False,      # Real-time graph cumulative or not
+                           True,      # Real-time graph cumulative or not
                            False     ] # Track an agent      
 
 
-respose_effects = [    True,          # Enforce masks
+respose_effects = [    False,          # Enforce masks
                        False,          # Enforce vaccine
-                       False       ]   # Enforce isolation
+                       True       ]   # Enforce isolation
 
 # // ------------------------------------------------------
 #

@@ -20,6 +20,7 @@ class simulation():
         self.configured = False
         self.analysis = []
         self.group_analysis = []
+        self.graph_cumulative = False
         
         self.response_threshhold = 40 # % Percentage of population infected for response
         self.response_effects = [    True,          # Enforce masks
@@ -31,7 +32,7 @@ class simulation():
     # sim_time = months to sim
     # print_interval = number of steps inbetween each print
     # live_graph = whether to print the graph at each interval
-    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True, track_agent = False, sim_response = [False, False, False] ):
+    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True, track_agent = False, sim_response = [False, False, False], ac = False ):
         self.configured = True
         
         self.sim_time = sim_time
@@ -43,6 +44,7 @@ class simulation():
         
         self.cities = cities
         self.response_effects = sim_response
+        self.graph_cumulative = ac
         
     def run(self):
         
@@ -328,7 +330,7 @@ def execute( _sim_args ):
         c = generate_world(world_preset, world_factor)
                 
         
-        sim.configure( cities = [c], sim_time = sim_time, print_interval = print_interval, live_graph = analysis[0], track_agent = analysis[2], sim_response = response )
+        sim.configure( cities = [c], sim_time = sim_time, print_interval = print_interval, live_graph = analysis[0], track_agent = analysis[2], sim_response = response, ac = analysis[1] )
         sim.populate_cities()
         sim.infect_random_agents(10)
         
