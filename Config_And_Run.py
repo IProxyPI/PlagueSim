@@ -25,7 +25,7 @@ print_interval = 500 # Time steps between graph/progress bar prints. -1 to disab
 world_factor = 1 # Factor to multiply city size by
 world_preset = "Small town" # Preset for which city is generated and used in the simulation.
 
-number_of_simulations = 1 # Number of times the simulation is run, results are averaged
+number_of_simulations = 5 # Number of times the simulation is run, results are averaged
 
 #   Available world presets:
 #   
@@ -36,15 +36,14 @@ number_of_simulations = 1 # Number of times the simulation is run, results are a
 
 # Set true the output/analysis that is desired
 analysis_checklist = [     True,       # Display real-time graph
-                           False,       # Real-time graph cumulative or not
-                           False,       # Track an agent
-                           False,
-                           False       ]
+                           False,      # Real-time graph cumulative or not
+                           False     ] # Track an agent      
 
 
-respose_effects = [    False,          # Enforce masks
+respose_effects = [    True,          # Enforce masks
                        False,          # Enforce vaccine
                        False       ]   # Enforce isolation
+
 # // ------------------------------------------------------
 #
 #           Building sim_args

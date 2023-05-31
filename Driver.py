@@ -22,7 +22,7 @@ class simulation():
         self.group_analysis = []
         
         self.response_threshhold = 40 # % Percentage of population infected for response
-        self.respose_effects = [    True,          # Enforce masks
+        self.response_effects = [    True,          # Enforce masks
                                     True,          # Enforce vaccine
                                     True       ]   # Enforce isolation
         self.response_deployed = False
@@ -60,7 +60,7 @@ class simulation():
             
             if (not self.response_deployed and ((dm.get_sird()[1] / len(dm.agent_list) * 100) > self.response_threshhold)):
                 self.response_deployed = True
-                apply_response(self.respose_effects, dm.agent_list)
+                apply_response(self.response_effects, dm.agent_list)
             
             dm.reset_sird()
             
@@ -112,10 +112,6 @@ def apply_response( _response_effects, _agent_list ):
     vax = _response_effects[1]
     isolate = _response_effects[2]
     mask = _response_effects[0]
-    print("Response: ")
-    print(vax)
-    print(isolate)
-    print(mask)
     for agent in _agent_list:
         
         if (mask and not agent.anti_mask):
