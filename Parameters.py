@@ -73,6 +73,12 @@ perc_washes_hands_if_sick = 20 # %
 
 perc_immune_compromised = 2 # %
 
+perc_anti_mask = 1 # % People who will ignore mask mandates
+perc_anti_isolation = 1 # % People who will ignore isolation mandates
+perc_anti_vaccine = 1 # % People who will ignore vaccine mandates
+
+perc_asymptomatic = 1 # %
+
 chance_of_announcing_if_sick = 20 # %
 chance_of_going_to_doctor_if_sick = 2 # %
 

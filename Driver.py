@@ -19,7 +19,12 @@ class simulation():
         self.dm = Sim_Tools.sim_data_manager()
         self.configured = False
         self.analysis = []
-    
+        
+        self.response_threshhold = 20 # % Percentage of population infected for response
+        self.respose_effects = [    False,          # Enforce masks
+                                    False,          # Enforce vaccine
+                                    False       ]   # Enforce isolation
+        
     # cities = an array of cities to be used within the simulation
     # sim_time = months to sim
     # print_interval = number of steps inbetween each print
@@ -95,6 +100,10 @@ class simulation():
     def populate_cities(self):
         for city in self.cities:
             city.populate_city(self.dm)
+    
+def apply_response( _respose_effects ):
+    
+    
     
 def run_quick_sim_v2( _time = 2, _print_interval = 20):
     

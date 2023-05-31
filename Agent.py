@@ -26,11 +26,22 @@ class agent():
         self.washes_hands_when_sick_or_exposed = False
         self.goes_to_doctor_if_exposed = False
         self.goes_to_doctor_if_sick = False
-         
+
+        self.washes_hands_when_sick_or_exposed = False
+        self.goes_to_doctor_if_exposed = False
+        self.goes_to_doctor_if_sick = False
+
+        self.asymptomatic = False # Infectious but not otherwise influenced by disease
         self.immune_compromised = False # If disease = death
          
         self.exposure_timer = 0 # If exposed, # of hours before exposure/staying home status ends
         self.immunity_timer = 0 # How long recovery immunity lasts
+        
+        self.anti_mask = False
+        self.anti_vaccine = False
+        self.anti_isolation = False
+        
+        self.vaccinated = False
         
         self.is_sick = False
         self.time_sick = 0

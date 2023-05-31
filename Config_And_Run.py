@@ -39,6 +39,10 @@ analysis_checklist = [     False,       # Display real-time graph
                            False,
                            False       ]
 
+
+respose_effects = [    False,          # Enforce masks
+                       False,          # Enforce vaccine
+                       False       ]   # Enforce isolation
 # // ------------------------------------------------------
 #
 #           Building sim_args

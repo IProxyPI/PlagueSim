@@ -57,9 +57,13 @@ def create_agent( _dm ):
     output_agent.washes_hands_when_sick_or_exposed = roll_percentage( Parameters.perc_washes_hands_if_sick ) or output_agent.washes_hands
     output_agent.goes_to_doctor_if_exposed = roll_percentage( Parameters.chance_of_going_to_doctor_if_sick )
     output_agent.goes_to_doctor_if_sick = roll_percentage( Parameters.chance_of_going_to_doctor_if_sick ) or output_agent.goes_to_doctor_if_exposed
-    
+
+    output_agent.anti_isolation = roll_percentage( Parameters.perc_anti_isolation )
+    output_agent.anti_mask = roll_percentage( Parameters.perc_anti_mask )
+    output_agent.anti_vaccine = roll_percentage( Parameters.perc_anti_vaccine )
+     
     output_agent.immune_compromised = roll_percentage( Parameters.perc_immune_compromised )
-    
+    output_agent.asymptomatic = roll_percentage( Parameters.perc_asymptomatic )
     
     output_agent.dm = _dm
     output_agent.gen_temp_schedule()
