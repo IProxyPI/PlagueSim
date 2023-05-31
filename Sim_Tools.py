@@ -14,6 +14,7 @@ class sim_data_manager():
         self.location_list = [] # Current unused
         self.state_events = []
         self.sird = [0, 0, 0, 0, 0, 0]
+        self.total_infections = 0
         
     def reset_sird(self):
         self.sird = [0, 0, 0, 0, 0, 0]

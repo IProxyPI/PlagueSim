@@ -19,6 +19,7 @@ class simulation():
         self.dm = Sim_Tools.sim_data_manager()
         self.configured = False
         self.analysis = []
+        self.group_analysis = []
         
         self.response_threshhold = 40 # % Percentage of population infected for response
         self.respose_effects = [    True,          # Enforce masks
@@ -30,7 +31,7 @@ class simulation():
     # sim_time = months to sim
     # print_interval = number of steps inbetween each print
     # live_graph = whether to print the graph at each interval
-    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True, track_agent = False):
+    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True, track_agent = False, sim_response = [False, False, False] ):
         self.configured = True
         
         self.sim_time = sim_time
@@ -41,6 +42,7 @@ class simulation():
             self.tracked_agent = 1
         
         self.cities = cities
+        self.response_effects = sim_response
         
     def run(self):
         
@@ -90,6 +92,7 @@ class simulation():
         # Final Print
         
         self.analysis = analyze_results(dm.event_list, dm.state_events, dm.agent_list)
+        self.group_analysis = analyze_by_group(dm.total_infections, dm.event_list)
         
     def print_analysis(self):
         
@@ -109,14 +112,17 @@ def apply_response( _response_effects, _agent_list ):
     vax = _response_effects[1]
     isolate = _response_effects[2]
     mask = _response_effects[0]
-    
+    print("Response: ")
+    print(vax)
+    print(isolate)
+    print(mask)
     for agent in _agent_list:
         
-        if (not agent.anti_mask):
+        if (mask and not agent.anti_mask):
             agent.will_always_mask = True
-        if (not agent.anti_vaccine):
+        if (vax and not agent.anti_vaccine):
             agent.vaccinated = True
-        if (not agent.anti_isolation):
+        if (isolate and not agent.anti_isolation):
             agent.will_stay_home_if_exposed = True
             agent.will_stay_home_if_sick = True
     
@@ -137,7 +143,7 @@ def run_quick_sim_v2( _time = 2, _print_interval = 20):
     
     sim.configure( cities = [c], sim_time = _time, print_interval = _print_interval, live_graph = True )
     sim.populate_cities()
-    sim.infect_random_agents(10)
+    sim.infect_random_agents(20)
     
     sim.run()
     sim.print_analysis()
@@ -158,7 +164,7 @@ def place_agents_in_world(_time, _dm, _locations, _tracker = 1):
         schedule = cur.get_schedule()
         cur_action = schedule[_time%24]
         
-        if ((cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show * 24) or (cur.is_exposed() and cur.will_stay_home_if_exposed)):
+        if ((cur.is_contagious() and cur.will_stay_home_if_sick and cur.time_sick > Parameters.time_before_symptoms_show * 24 and not cur.asymptomatic) or (cur.is_exposed() and cur.will_stay_home_if_exposed)):
             cur.home_location.add_agent_to_location(cur)
             loc = cur.home_location
             
@@ -283,7 +289,25 @@ def analyze_by_group(_total_infections, _event_list):
     unquarintined_infections = 0
     unannouncer_infections = 0
     asymptomatic_infections = 0
-
+ 
+    for event in _event_list:
+        if (event.type == "Infection"):
+            if (event.infector != None):
+                a = event.infector
+                if (not a.will_mask_if_exposed and not a.washes_hands):
+                    unsanitary_infections += 1
+                if (not a.will_stay_home_if_sick):
+                    unquarintined_infections += 1
+                if (not a.will_announce_if_sick):
+                    unannouncer_infections += 1
+                if (a.asymptomatic):
+                    asymptomatic_infections += 1
+    
+    return [    unsanitary_infections / _total_infections,
+                unquarintined_infections / _total_infections,
+                unannouncer_infections / _total_infections,
+                asymptomatic_infections / _total_infections       ]
+            
 def execute( _sim_args ):
     
     analysis = _sim_args[0]
@@ -298,13 +322,17 @@ def execute( _sim_args ):
     
     for i in range(sim_count):
         
+        print("# ---------------------------------------------------------- #")
+        print("#                    Running " + str(i+1) + " of " + str(sim_count))
+        print("# ---------------------------------------------------------- #")
+        
         sim = simulation()
         sim_list.append(sim)
         
         c = generate_world(world_preset, world_factor)
                 
         
-        sim.configure( cities = [c], sim_time = sim_time, print_interval = print_interval, live_graph = analysis[0], track_agent = analysis[2] )
+        sim.configure( cities = [c], sim_time = sim_time, print_interval = print_interval, live_graph = analysis[0], track_agent = analysis[2], sim_response = response )
         sim.populate_cities()
         sim.infect_random_agents(10)
         
@@ -319,6 +347,24 @@ def execute( _sim_args ):
         avg_dead_perc += int(1000*(sim.analysis[1]/sim.analysis[0]))/10
     
     print("# Average population percentage dead : " + str(avg_dead_perc/len(sim_list)) + "%")
+    
+    unsanitary_infections = 0
+    unquarintined_infections = 0
+    unannouncer_infections = 0
+    asymptomatic_infections = 0
+
+    for sim in sim_list:
+        unsanitary_infections += sim.group_analysis[0]
+        unquarintined_infections += sim.group_analysis[1]
+        unannouncer_infections += sim.group_analysis[2]
+        asymptomatic_infections += sim.group_analysis[3]
+    
+    print("# Infections per group : ")
+    print("#")
+    print("# Average infections from unsanitary agents : " + str(unsanitary_infections/len(sim_list)) + "%")
+    print("# Average infections from anti-isolation agents : " + str(unquarintined_infections/len(sim_list)) + "%")
+    print("# Average infections from unannouncer agents : " + str(unannouncer_infections/len(sim_list)) + "%")
+    print("# Average infections from asymptomatic agents : " + str(asymptomatic_infections/len(sim_list)) + "%")
     
 #run_quick_sim_v2(6, 100)
 

@@ -47,7 +47,7 @@ mask_infection_reduction = 56 # %. This applies for each mask worn, aka infector
 # Hand washing affects contact infections
 hand_washing_infection_reduction = 40 # %. This applies individually, aka infector and suspectible
 
-vaccine_infection_reduction = 60 # %
+vaccine_infection_reduction = 70 # %
 vaccine_duration_reduction = 50 # %. How long the sick time is reduced for
 
 # // ------------------------------------------------------

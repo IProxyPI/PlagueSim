@@ -7,11 +7,11 @@ import Parameters
 # Records the moment in which an infection occurs
 class infection_event():
     
-    def __init__(self, _cur_time = 0):
+    def __init__(self, _infector, _subject, _cur_time = 0):
         self.time = _cur_time
-        self.subject = None # Agent the event has occured to
+        self.subject = _subject # Agent the event has occured to
         self.infection_type = "" # CONTACT, AIRBORN, FOOD
-        self.infector = None
+        self.infector = _infector
         self.type = "Infection"
         
     def get_time(self):

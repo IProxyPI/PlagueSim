@@ -88,7 +88,7 @@ class agent():
                         final_contact *= (1 - 0.01 * Parameters.vaccine_infection_reduction)
                         
                     if (r < (final_airborne + final_contact)):
-                        cur_agent.infect( self )
+                        cur_agent.infect( infector = self )
                         self.times_infecting_others += 1
                 if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24 and not self.asymptomatic):
                     cur_agent.exposure_timer = Parameters.time_considered_exposed
@@ -100,7 +100,8 @@ class agent():
         self.never_infected = False
         self.times_infected += 1
         
-        self.dm.event_list.append(Events.infection_event(self.cur_time))
+        self.dm.event_list.append(Events.infection_event(infector, self, self.cur_time))
+        self.dm.total_infections += 1
     
     def update(self):
         
