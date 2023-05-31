@@ -85,3 +85,4 @@ def print_stat_analysis( analysis ):
 
 def print_map_data( _list_of_all_locations ):
     pass
+

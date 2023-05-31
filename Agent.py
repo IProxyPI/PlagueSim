@@ -19,6 +19,7 @@ class agent():
         self.will_stay_home_if_sick = False
         self.will_stay_home_if_exposed = False
         self.will_mask_if_sick = False
+        self.will_always_mask = False
         self.will_mask_if_exposed = False
         self.will_announce_if_sick = False
         self.will_announce_if_exposed = False
@@ -82,6 +83,10 @@ class agent():
                     if (cur_agent.will_wash_hands()):
                         final_contact *= Parameters.hand_washing_infection_reduction*0.01
                     r = rand.random()
+                    if (cur_agent.vaccinated):
+                        final_airborne *= (1 - 0.01 * Parameters.vaccine_infection_reduction)
+                        final_contact *= (1 - 0.01 * Parameters.vaccine_infection_reduction)
+                        
                     if (r < (final_airborne + final_contact)):
                         cur_agent.infect( self )
                         self.times_infecting_others += 1
@@ -141,7 +146,7 @@ class agent():
     
     # STUBS HERE
     def is_masked(self):
-        return self.is_exposed() and self.will_mask_if_exposed or self.is_sick and self.will_mask_if_sick
+        return self.will_always_mask or ((self.is_exposed() and self.will_mask_if_exposed) or (self.is_sick and self.will_mask_if_sick))
     
     def will_wash_hands(self):
         return False
@@ -191,6 +196,7 @@ class agent():
         print("# Stays home if sick    : " + str(self.will_stay_home_if_sick))
         print("# Times sick            : " + str(self.times_infected))
         print("# Times infected others : " + str(self.times_infecting_others))
+        print("# Vaccinated            : " + str(self.vaccinated))
         print("# ----------------------------------------------- #")
     
     def gen_temp_schedule(self):
@@ -218,3 +224,4 @@ class agent():
                             "free",        #21
                             "free",        #22
                             "sleep"]        #23
+        

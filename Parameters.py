@@ -73,9 +73,9 @@ perc_washes_hands_if_sick = 20 # %
 
 perc_immune_compromised = 2 # %
 
-perc_anti_mask = 1 # % People who will ignore mask mandates
-perc_anti_isolation = 1 # % People who will ignore isolation mandates
-perc_anti_vaccine = 1 # % People who will ignore vaccine mandates
+perc_anti_mask = 5 # % People who will ignore mask mandates
+perc_anti_isolation = 5 # % People who will ignore isolation mandates
+perc_anti_vaccine = 5 # % People who will ignore vaccine mandates
 
 perc_asymptomatic = 1 # %
 
@@ -110,3 +110,5 @@ workers_per_hospital = 20 # Unfortuanatly the average of roughly 1000 employees 
 workers_per_office = 30 # same issue as the hospital
 workers_per_farm = 20 # same issue as the hospital
 hospital_capacity = workers_per_hospital/4 # To compensate we will consider the average of 4 employees per patient. Over this will overwork a hospital
+
+

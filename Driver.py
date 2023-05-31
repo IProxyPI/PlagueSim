@@ -20,10 +20,11 @@ class simulation():
         self.configured = False
         self.analysis = []
         
-        self.response_threshhold = 20 # % Percentage of population infected for response
-        self.respose_effects = [    False,          # Enforce masks
-                                    False,          # Enforce vaccine
-                                    False       ]   # Enforce isolation
+        self.response_threshhold = 40 # % Percentage of population infected for response
+        self.respose_effects = [    True,          # Enforce masks
+                                    True,          # Enforce vaccine
+                                    True       ]   # Enforce isolation
+        self.response_deployed = False
         
     # cities = an array of cities to be used within the simulation
     # sim_time = months to sim
@@ -50,10 +51,11 @@ class simulation():
         for i in range(int(self.sim_time * 30 * 24)):
             
             if (i == 0.5 * 24 * 30 * 12):
-                Parameters.infection_chance *= 8
-            if (i == int(0.55 * 24 * 30 * 12)):
-                Parameters.infection_chance /= 12
-
+                Parameters.infection_chance *= 7 # Omicron simulation
+            
+            if (not self.response_deployed and ((dm.get_sird()[1] / len(dm.agent_list) * 100) > self.response_threshhold)):
+                self.response_deployed = True
+                apply_response(self.respose_effects, dm.agent_list)
             
             dm.reset_sird()
             
@@ -78,9 +80,7 @@ class simulation():
             
             if (cur_state.infected == 0):
                 i = int(self.sim_time * 30 * 24)
-        
-        Visuals.sir_model()
-        
+      
         print("# ---------------------------------------------------------- #")
         print("#                    Simulation complete")
         print("# ---------------------------------------------------------- #")
@@ -101,9 +101,21 @@ class simulation():
         for city in self.cities:
             city.populate_city(self.dm)
     
-def apply_response( _respose_effects ):
+def apply_response( _response_effects, _agent_list ):
     
+    vax = _response_effects[1]
+    isolate = _response_effects[2]
+    mask = _response_effects[0]
     
+    for agent in _agent_list:
+        
+        if (not agent.anti_mask):
+            agent.will_always_mask = True
+        if (not agent.anti_vaccine):
+            agent.vaccinated = True
+        if (not agent.anti_isolation):
+            agent.will_stay_home_if_exposed = True
+            agent.will_stay_home_if_sick = True
     
 def run_quick_sim_v2( _time = 2, _print_interval = 20):
     

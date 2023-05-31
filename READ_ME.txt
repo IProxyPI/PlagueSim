@@ -16,3 +16,9 @@ Testing_Module: Location Agents - Events - Parameters - Resources - Sim_Tools - 
 Visuals: Locations - Agent - Parameters
 Parameters: None
 Resources: None
+
+
+Sources used:
+
+Asymptomatic data
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9321237/
