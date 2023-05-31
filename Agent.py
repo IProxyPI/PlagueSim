@@ -119,8 +119,12 @@ class agent():
         if (self.is_sick and self.is_alive):
             self.time_sick += 1
             
+            v_mod = 1
+            if (self.vaccinated):
+                v_mod = 1 - 0.01 * Parameters.vaccine_infection_reduction
+            
             if (self.time_sick >= Parameters.infection_period * 24):
-                if (rand.random() * 100 <= Parameters.lethality_rate or self.immune_compromised):
+                if ((rand.random() * 100 <= Parameters.lethality_rate * (v_mod) or self.immune_compromised) and not self.asymptomatic):
                     
                     self.dm.event_list.append(Events.infection_death_event(self.cur_time))
                     self.is_alive = False

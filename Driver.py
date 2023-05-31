@@ -30,12 +30,15 @@ class simulation():
     # sim_time = months to sim
     # print_interval = number of steps inbetween each print
     # live_graph = whether to print the graph at each interval
-    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True):
+    def configure(self, cities = [], sim_time = 2, print_interval = -1, live_graph = True, track_agent = False):
         self.configured = True
         
         self.sim_time = sim_time
         self.print_interval = print_interval
         self.live_graph = live_graph
+        self.tracked_agent = -1
+        if (track_agent):
+            self.tracked_agent = 1
         
         self.cities = cities
         
@@ -50,7 +53,7 @@ class simulation():
         
         for i in range(int(self.sim_time * 30 * 24)):
             
-            if (i == 0.5 * 24 * 30 * 12):
+            if (i == 0.25 * 24 * 30 * 12):
                 Parameters.infection_chance *= 7 # Omicron simulation
             
             if (not self.response_deployed and ((dm.get_sird()[1] / len(dm.agent_list) * 100) > self.response_threshhold)):
@@ -60,7 +63,7 @@ class simulation():
             dm.reset_sird()
             
             for city in self.cities:
-                place_agents_in_world(time, dm, city.get_locations(), 1)
+                place_agents_in_world(time, dm, city.get_locations(), self.tracked_agent)
                 city.update()
             time+=1
             
@@ -275,9 +278,34 @@ def check_city_size(_preset):
     return len(sim.dm.agent_list)
     
 def execute( _sim_args ):
-    pass    
 
-run_quick_sim_v2(12, 100)
+    analysis = _sim_args[0]
+    response = _sim_args[1]
+    sim_time = _sim_args[2]
+    print_interval = _sim_args[3]
+    world_factor = _sim_args[4]
+    world_preset = _sim_args[5]
+    sim_count = _sim_args[6]
+    
+    sim_list = []
+    
+    for i in range(sim_count):
+        
+        sim = simulation()
+        sim_list.append(sim)
+        
+        c = generate_world(world_preset, world_factor)
+                
+        
+        sim.configure( cities = [c], sim_time = sim_time, print_interval = print_interval, live_graph = analysis[0], track_agent = analysis[2] )
+        sim.populate_cities()
+        sim.infect_random_agents(10)
+        
+        sim.run()
+        sim.print_analysis()
+    
+
+#run_quick_sim_v2(6, 100)
 
 # // Runs all tests
 

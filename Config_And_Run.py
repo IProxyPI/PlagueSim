@@ -20,10 +20,12 @@ import Driver
 # // ------------------------------------------------------
 
 simulation_time = 2 # Months
-print_interval = 10 # Time steps between graph/progress bar prints. -1 to disable
+print_interval = 200 # Time steps between graph/progress bar prints. -1 to disable
 
 world_factor = 2 # Factor to multiply city size by
-world_preset = "Large city" # Preset for which city is generated and used in the simulation.
+world_preset = "Small town" # Preset for which city is generated and used in the simulation.
+
+number_of_simulations = 1 # Number of times the simulation is run, results are averaged
 
 #   Available world presets:
 #   
@@ -33,7 +35,7 @@ world_preset = "Large city" # Preset for which city is generated and used in the
 #   "Downtown" ~= Population 4942 * world_Factor
 
 # Set true the output/analysis that is desired
-analysis_checklist = [     False,       # Display real-time graph
+analysis_checklist = [     True,       # Display real-time graph
                            False,       # Real-time graph cumulative or not
                            False,       # Track an agent
                            False,
@@ -49,7 +51,13 @@ respose_effects = [    False,          # Enforce masks
 #   
 # // ------------------------------------------------------
 
-sim_args = []
+sim_args = [    analysis_checklist,
+                respose_effects,
+                simulation_time,
+                print_interval,
+                world_factor,
+                world_preset,
+                number_of_simulations   ]
 
 # // ------------------------------------------------------
 #   

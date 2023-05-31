@@ -22,7 +22,7 @@ infection_chance = 0.15 # % per hour
 
 contagion_period = 12 # Days
 infection_period = 12 # Days
-immunity_period = 12 # days
+immunity_period = 24 # days
 time_before_symptoms_show = 5.6 # Undetectable during this period, unless at hospital
 lethality_rate = 1.1 # % chance of death
 time_considered_exposed = time_before_symptoms_show
@@ -45,9 +45,9 @@ contact_infection_percentage = 100 - airborne_infection_percentage
 # Masks affect airborne infections
 mask_infection_reduction = 56 # %. This applies for each mask worn, aka infector and suspectible
 # Hand washing affects contact infections
-hand_washing_infection_reduction = 20 # %. This applies individually, aka infector and suspectible
+hand_washing_infection_reduction = 40 # %. This applies individually, aka infector and suspectible
 
-vaccine_infection_reduction = 50 # %
+vaccine_infection_reduction = 60 # %
 vaccine_duration_reduction = 50 # %. How long the sick time is reduced for
 
 # // ------------------------------------------------------
@@ -66,10 +66,10 @@ vaccine_duration_reduction = 50 # %. How long the sick time is reduced for
 
 # These chances are rolled on every individual to determine their behaviours during
 # the simulation
-perc_stay_home_if_sick = 20 # %
+perc_stay_home_if_sick = 35 # %
 perc_mask_if_sick = 41 # %
-perc_will_announce_if_sick = 20 # %
-perc_washes_hands_if_sick = 20 # %
+perc_will_announce_if_sick = 40 # %
+perc_washes_hands_if_sick = 60 # %
 
 perc_immune_compromised = 2 # %
 
