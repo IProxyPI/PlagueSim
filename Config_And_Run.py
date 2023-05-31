@@ -25,7 +25,7 @@ print_interval = 50 # Time steps between graph/progress bar prints. -1 to disabl
 world_factor = 1 # Factor to multiply city size by
 world_preset = "Downtown" # Preset for which city is generated and used in the simulation.
 
-number_of_simulations = 1 # Number of times the simulation is run, results are averaged
+number_of_simulations = 2 # Number of times the simulation is run, results are averaged
 
 #   Available world presets:
 #   
