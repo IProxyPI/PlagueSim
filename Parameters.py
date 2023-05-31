@@ -88,7 +88,7 @@ chance_of_going_to_doctor_if_sick = 2 # %
 #
 # // ------------------------------------------------------
 
-hospitalizations_to_trigger_lockdown = 20 # %. Percentage of population required to 
+hospitalizations_to_trigger_lockdown = 40 # %. Percentage of population required to 
 # trigger a lockdown, leave at 100 to disable lockdown mechanics
 hospitalizations_to_lift_lockdown = 2 # %. Percentage hospitalizations must be under
 # to lift lockdown

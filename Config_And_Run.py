@@ -39,7 +39,7 @@ analysis_checklist = [     True,       # Display real-time graph
                            True,      # Real-time graph cumulative or not
                            False     ] # Track an agent      
 
-
+response_threshhold = 40 # % Required global infection % for the response to trigger
 respose_effects = [    True,          # Enforce masks
                        True,          # Enforce vaccine
                        True       ]   # Enforce isolation
@@ -56,7 +56,8 @@ sim_args = [    analysis_checklist,
                 print_interval,
                 world_factor,
                 world_preset,
-                number_of_simulations   ]
+                number_of_simulations,
+                response_threshhold     ]
 
 # // ------------------------------------------------------
 #   

@@ -315,6 +315,7 @@ def execute( _sim_args ):
     world_factor = _sim_args[4]
     world_preset = _sim_args[5]
     sim_count = _sim_args[6]
+    response_threshhold = _sim_args[7]
     
     sim_list = []
     
@@ -326,6 +327,7 @@ def execute( _sim_args ):
         
         sim = simulation()
         sim_list.append(sim)
+        sim.response_threshhold = response_threshhold
         
         c = generate_world(world_preset, world_factor)
                 
