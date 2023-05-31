@@ -90,7 +90,7 @@ class agent():
                     if (r < (final_airborne + final_contact)):
                         cur_agent.infect( self )
                         self.times_infecting_others += 1
-                if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24):
+                if (self.will_announce_if_sick and self.time_sick > Parameters.time_before_symptoms_show * 24 and not self.asymptomatic):
                     cur_agent.exposure_timer = Parameters.time_considered_exposed
                 
     # Add infection event here

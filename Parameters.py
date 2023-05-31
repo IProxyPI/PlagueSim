@@ -18,11 +18,11 @@
 #
 # // ------------------------------------------------------
 
-infection_chance = 0.2 # % per hour
+infection_chance = 0.15 # % per hour
 
 contagion_period = 12 # Days
 infection_period = 12 # Days
-immunity_period = 24 # days
+immunity_period = 12 # days
 time_before_symptoms_show = 5.6 # Undetectable during this period, unless at hospital
 lethality_rate = 1.1 # % chance of death
 time_considered_exposed = time_before_symptoms_show

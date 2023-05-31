@@ -13,7 +13,7 @@ import random
 # can be run, compared and evaluated seperately without losing the previous as the 
 # next starts.
 class simulation():
-    
+   
     def __init__(self):
         
         self.dm = Sim_Tools.sim_data_manager()
@@ -83,7 +83,7 @@ class simulation():
             
             if (cur_state.infected == 0):
                 i = int(self.sim_time * 30 * 24)
-      
+        Parameters.infection_chance /= 7
         print("# ---------------------------------------------------------- #")
         print("#                    Simulation complete")
         print("# ---------------------------------------------------------- #")
@@ -276,9 +276,16 @@ def check_city_size(_preset):
     sim.configure( [c] )
     sim.populate_cities()
     return len(sim.dm.agent_list)
-    
-def execute( _sim_args ):
 
+def analyze_by_group(_total_infections, _event_list):
+    
+    unsanitary_infections = 0
+    unquarintined_infections = 0
+    unannouncer_infections = 0
+    asymptomatic_infections = 0
+
+def execute( _sim_args ):
+    
     analysis = _sim_args[0]
     response = _sim_args[1]
     sim_time = _sim_args[2]
